@@ -400,6 +400,25 @@ ex ()
   fi
 }
 
+
+# # co = COmpress for all kinds of archives
+# # usage: co <output_file> <file>
+co() {
+  FILE=$1
+  shift
+  case $FILE in
+      *.tar.bz2) tar cjf $FILE $*  ;;
+      *.tar.gz)  tar czf $FILE $*  ;;
+      *.tgz)     tar czf $FILE $*  ;;
+      *.zip)     zip $FILE $*      ;;
+      *.rar)     rar $FILE $*      ;;
+      *)         echo "Filetype not recognized" ;;
+   esac
+}
+
+
+
+
 #btrfs aliases
 alias btrfsfs="sudo btrfs filesystem df /"
 alias btrfsli="sudo btrfs su li / -t"
