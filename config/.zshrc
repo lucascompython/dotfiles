@@ -145,7 +145,8 @@ alias ll='exa -l --color=always --group-directories-first'  # long format
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
 alias l.='exa -a | egrep "^\."'
 
-
+# Replace cat with bat
+alias cat='bat --style header --style rules --style snip --style changes --style header'
 
 
 
