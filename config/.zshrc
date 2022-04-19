@@ -416,6 +416,27 @@ co() {
    esac
 }
 
+# # math function for basic calculations
+# # usage: math <expression>
+# # CAUTION "*" needs to escaped with "\"
+math() {
+  #echo $* | bc
+  echo $(($*))
+}
+
+# # math function for calculating the square root of a number
+# # usage: sqrt <expression>
+sqrt() {
+  bc <<< "scale=3; sqrt($*)"
+}
+
+
+# # math fucntion to calculate the power of a number
+# # usage: pow <base> <exponent>
+pow() {
+  echo $(( $1 ** $2 ))
+}
+
 
 
 
