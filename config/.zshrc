@@ -145,9 +145,9 @@ alias ll='exa -l --color=always --group-directories-first'  # long format
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
 alias l.='exa -a | egrep "^\."'
 
+
 # Replace cat with bat
 alias cat='bat --style header --style rules --style snip --style changes --style header'
-
 
 
 #fix obvious typo's
@@ -408,7 +408,7 @@ co() {
   shift
   case $FILE in
       *.tar.bz2) tar cjf $FILE $*  ;;
-      *.tar.gz)  tar czf $FILE $*  ;;
+      *.tar.gz)  tar czvf $FILE $*  ;;
       *.tgz)     tar czf $FILE $*  ;;
       *.zip)     zip $FILE $*      ;;
       *.rar)     rar $FILE $*      ;;
@@ -416,12 +416,13 @@ co() {
    esac
 }
 
+
 # # math function for basic calculations
 # # usage: math <expression>
 # # CAUTION "*" needs to escaped with "\"
 math() {
-  #echo $* | bc
-  echo $(($*))
+  echo "scale=5; $*" | bc
+ # echo $(($*))
 }
 
 # # math function for calculating the square root of a number
@@ -436,8 +437,6 @@ sqrt() {
 pow() {
   echo $(( $1 ** $2 ))
 }
-
-
 
 
 #btrfs aliases
@@ -497,8 +496,8 @@ neofetch
 #cpufetch
 #colorscript random
 
-
-
-
 alias open="xdg-open $1"
 alias neovim="nvim $1"
+alias obliterate="sudo pkill $1 && sudo kilall $1"
+alias restart="pkill $1 && $1"
+alias cls="clear"
