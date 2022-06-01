@@ -129,6 +129,7 @@ if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
+PATH="$HOME/Downloads/connection/Jconnector_qas:$PATH"
 ### ALIASES ###
 
 #list
@@ -393,6 +394,7 @@ ex ()
       *.deb)       ar x $1      ;;
       *.tar.xz)    tar xf $1    ;;
       *.tar.zst)   tar xf $1    ;;
+      *.jar)       jar xvf $1   ;;
       *)           echo "'$1' cannot be extracted via ex()" ;;
     esac
   else
@@ -501,3 +503,5 @@ alias neovim="nvim $1"
 alias obliterate="sudo pkill $1 && sudo kilall $1"
 alias restart="pkill $1 && $1"
 alias cls="clear"
+eval "$(zoxide init zsh)"
+alias cd="z $*"
