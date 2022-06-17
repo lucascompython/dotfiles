@@ -14,4 +14,5 @@ Just copy the [config file](Microsoft.PowerShell_profile.ps1), install the [depe
 * [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh)
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
 * [PSReadLine](https://github.com/PowerShell/PSReadLine)
-
+* [Terminal Icons](https://github.com/devblackops/Terminal-Icons)
+* [JetBrains Mono Fonts](https://www.nerdfonts.com/font-downloads)
