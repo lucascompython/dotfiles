@@ -2,12 +2,11 @@
 Just my dotfiles
 
 ## Distro
-I change distros a lot but right now on main desktop im on Arco Linux with awesomewm and on my main laptop I got ArchCraft with i3wm. 
+I change distros a lot but right now on main desktop im on Arco Linux with awesomewm and on my main laptop I got ArchCraft with i3wm when I'm with Xorg and when I'm playing with Wayland I usually go with [Hyprland](https://github.com/vaxerski/Hyprland). 
 
-On my "test" laptop that im using bedrock linux with Regolith Ubuntu hijacked but I might change to FreeBsd.
+On my "test" laptop I am dual booting Linux with Windows using [Bedrock Linux](https://bedrocklinux.org) with [Regolith](https://regolith-desktop.com) Ubuntu hijacked and Windows 11. I might also experiment with [FreeBsd](https://www.freebsd.org).
 
 ## Shell && Terminal
-I mostly use fish, but im experimenting with zsh for now. I always use alacritty.
+I mostly use fish, but im experimenting with zsh and powerhsell for now. I mostly use alacritty and/or foot.
 
-## 👀
-Im looking into FreeBsd and might sacrifice one of my laptops to be a server with it.
+
