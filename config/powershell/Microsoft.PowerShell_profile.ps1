@@ -20,3 +20,18 @@ Invoke-Expression (& {
     $hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
     (zoxide init --hook $hook powershell --cmd cd | Out-String)
 })
+
+# Save the current line in the history but doesn't execute it
+Set-PSReadLineKeyHandler -Key Alt+w `
+                         -BriefDescription "SaveInHistoy" `
+                         -LongDescription "Save the current line in the history but do not execute" `
+                         -ScriptBlock {
+                            param($key, $arg)
+
+                            $line = $null
+                            $cursor = $null
+                            [Microsoft.Powershell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+                            [Microsoft.Powershell.PSConsoleReadLine]::AddToHistory($line)
+                            [Microsoft.Powershell.PSConsoleReadLine]::RevertLine()
+                         }
+
