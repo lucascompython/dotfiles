@@ -1,3 +1,4 @@
+Clear-Host # To remove the annoying initial text when openning pwsh
 oh-my-posh init pwsh --config C:\Users\lucas\AppData\Local\Programs\oh-my-posh\themes/1_shell.omp.json | Invoke-Expression
 
 Import-Module -Name Terminal-Icons
