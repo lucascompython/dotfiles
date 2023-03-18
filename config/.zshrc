@@ -76,10 +76,11 @@ ZSH_THEME="random"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-##zsh-completions
-plugins=(git zsh-autosuggestions history-substring-search)
+plugins=(git zsh-autosuggestions)
 
-source $ZSH/oh-my-zsh.sh
+if [ -f $ZSH/oh-my-zsh.sh ]; then
+  source $ZSH/oh-my-zsh.sh
+fi
 
 # User configuration
 
@@ -100,9 +101,11 @@ source $ZSH/oh-my-zsh.sh
 
 
 ####   ARCOLINUX SETTINGS   ####
-export PAGER='most'
+export PAGER='bat'
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 setopt GLOB_DOTS
 #share commands between terminal instances or not
@@ -117,7 +120,7 @@ export HISTCONTROL=ignoreboth:erasedups
 # Make nano the default editor
 
 export EDITOR='nvim'
-export VISUAL='nano'
+export VISUAL='emacs'
 
 #PS1='[\u@\h \W]\$ '
 
@@ -129,7 +132,6 @@ if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
-PATH="$HOME/Downloads/connection/Jconnector_qas:$PATH"
 ### ALIASES ###
 
 #list
@@ -138,6 +140,7 @@ PATH="$HOME/Downloads/connection/Jconnector_qas:$PATH"
 #alias ll='ls -alFh'
 #alias l='ls'
 #alias l.="ls -A | egrep '^\.'"
+#alias listdir="ls -d */ > list"
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first --icons' # my preferred listing
@@ -146,10 +149,28 @@ alias ll='exa -l --color=always --group-directories-first --icons'  # long forma
 alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
 alias l.='exa -a | egrep "^\."'
 
-
 # Replace cat with bat
-alias cat='bat --style header --style rules --style snip --style changes --style header'
+alias cat='bat -pp -n --pager=never --style header --style --style snip --style changes --style header --style numbers'
+alias less="bat"
 
+
+
+
+#pacman
+alias sps='sudo pacman -S'
+alias spr='sudo pacman -R'
+alias sprs='sudo pacman -Rs'
+alias sprdd='sudo pacman -Rdd'
+alias spqo='sudo pacman -Qo'
+alias spsii='sudo pacman -Sii'
+
+# show the list of packages that need this package - depends mpv as example
+function_depends()  {
+    search=$(echo "$1")
+    sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
+    }
+
+alias depends='function_depends'
 
 #fix obvious typo's
 alias cd..='cd ..'
@@ -160,8 +181,6 @@ alias updte='sudo pacman -Syyu'
 alias updqte='sudo pacman -Syyu'
 alias upqll='paru -Syu --noconfirm'
 alias upal='paru -Syu --noconfirm'
-
-
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
@@ -174,6 +193,10 @@ alias df='df -h'
 #keyboard
 alias give-me-azerty-be="sudo localectl set-x11-keymap be"
 alias give-me-qwerty-us="sudo localectl set-x11-keymap us"
+
+#setlocale
+alias setlocale="sudo localectl set-locale LANG=en_US.UTF-8"
+alias setlocales="sudo localectl set-x11-keymap be && sudo localectl set-locale LANG=en_US.UTF-8"
 
 #pacman unlock
 alias unlock="sudo rm /var/lib/pacman/db.lck"
@@ -192,15 +215,15 @@ alias free="free -mt"
 alias wget="wget -c"
 
 #userlist
-alias userlist="cut -d: -f1 /etc/passwd"
+alias userlist="cut -d: -f1 /etc/passwd | sort"
 
 #merge new settings
 alias merge="xrdb -merge ~/.Xresources"
 
 # Aliases for software managment
-# pacman or pm
-alias pacman='sudo pacman --color auto'
-alias update='sudo pacman -Syyu'
+# pacman
+alias pacman="sudo pacman --color auto"
+alias update="sudo pacman -Syyu"
 
 # paru as aur helper - updates everything
 alias pksyua="paru -Syu --noconfirm"
@@ -212,12 +235,15 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 
 #grub update
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+#grub issue 08/2022
+alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi"
 
 #add new fonts
 alias update-fc='sudo fc-cache -fv'
 
 #copy/paste all content of /etc/skel over to home folder - backup of config created - beware
-alias skel='[ -d ~/.config ] || mkdir ~/.config && cp -Rf ~/.config ~/.config-backup-$(date +%Y.%m.%d-%H.%M.%S) && cp -rf /etc/skel/* ~'
+#skel alias has been replaced with a script at /usr/local/bin/skel
+
 #backup contents of /etc/skel to hidden backup folder in home/user
 alias bupskel='cp -Rf /etc/skel ~/.skel-backup-$(date +%Y.%m.%d-%H.%M.%S)'
 
@@ -249,6 +275,9 @@ alias kpi='killall picom'
 #hardware info --short
 alias hw="hwinfo --short"
 
+#audio check pulseaudio or pipewire
+alias audio="pactl info | grep 'Server Name'"
+
 #skip integrity check
 alias paruskip='paru -S --mflags --skipinteg'
 alias yayskip='yay -S --mflags --skipinteg'
@@ -256,6 +285,9 @@ alias trizenskip='trizen -S --skipinteg'
 
 #check vulnerabilities microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
+
+#check cpu
+alias cpu="cpuid -i | grep uarch | head -n 1"
 
 #get fastest mirrors in your neighborhood
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
@@ -265,14 +297,15 @@ alias mirrora="sudo reflector --latest 30 --number 10 --sort age --save /etc/pac
 #our experimental - best option for the moment
 alias mirrorx="sudo reflector --age 6 --latest 20  --fastest 20 --threads 5 --sort rate --protocol https --save /etc/pacman.d/mirrorlist"
 alias mirrorxx="sudo reflector --age 6 --latest 20  --fastest 20 --threads 20 --sort rate --protocol https --save /etc/pacman.d/mirrorlist"
-alias ram='rate-mirrors --allow-root arch | sudo tee /etc/pacman.d/mirrorlist'
-alias rams='rate-mirrors --allow-root --protocol https arch  | sudo tee /etc/pacman.d/mirrorlist'
+alias ram='rate-mirrors --allow-root --disable-comments arch | sudo tee /etc/pacman.d/mirrorlist'
+alias rams='rate-mirrors --allow-root --disable-comments --protocol https arch  | sudo tee /etc/pacman.d/mirrorlist'
 
 #mounting the folder Public for exchange between host and guest on virtualbox
 alias vbm="sudo /usr/local/bin/arcolinux-vbox-share"
 
 #enabling vmware services
 alias start-vmware="sudo systemctl enable --now vmtoolsd.service"
+alias vmware-start="sudo systemctl enable --now vmtoolsd.service"
 alias sv="sudo systemctl enable --now vmtoolsd.service"
 
 #shopt
@@ -296,9 +329,21 @@ alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | n
 
 #iso and version used to install ArcoLinux
 alias iso="cat /etc/dev-rel | awk -F '=' '/ISO/ {print $2}'"
+alias isoo="cat /etc/dev-rel"
 
 #Cleanup orphaned packages
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
+
+# This will generate a list of explicitly installed packages
+alias list="sudo pacman -Qqe"
+#This will generate a list of explicitly installed packages without dependencies
+alias listt="sudo pacman -Qqet"
+# list of AUR packages
+alias listaur="sudo pacman -Qqem"
+# add > list at the end to write to a file
+
+# install packages from list
+# pacman -S --needed - < my-list-of-packages.txt
 
 #clear
 alias clean="clear; seq 1 $(tput cols) | sort -R | sparklines | lolcat"
@@ -318,17 +363,26 @@ alias ngrub="sudo $EDITOR /etc/default/grub"
 alias nconfgrub="sudo $EDITOR /boot/grub/grub.cfg"
 alias nmkinitcpio="sudo $EDITOR /etc/mkinitcpio.conf"
 alias nmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
-alias narcomirrorlist='sudo nano /etc/pacman.d/arcolinux-mirrorlist'
+alias narcomirrorlist="sudo $EDITOR /etc/pacman.d/arcolinux-mirrorlist"
 alias nsddm="sudo $EDITOR /etc/sddm.conf"
 alias nsddmk="sudo $EDITOR /etc/sddm.conf.d/kde_settings.conf"
 alias nfstab="sudo $EDITOR /etc/fstab"
 alias nnsswitch="sudo $EDITOR /etc/nsswitch.conf"
 alias nsamba="sudo $EDITOR /etc/samba/smb.conf"
-alias ngnupgconf="sudo nano /etc/pacman.d/gnupg/gpg.conf"
+alias ngnupgconf="sudo $EDITOR /etc/pacman.d/gnupg/gpg.conf"
 alias nhosts="sudo $EDITOR /etc/hosts"
+alias nhostname="sudo $EDITOR /etc/hostname"
 alias nb="$EDITOR ~/.bashrc"
 alias nz="$EDITOR ~/.zshrc"
-alias nf="EDITOR ~/.config/fish/config.fish"
+alias nf="$EDITOR ~/.config/fish/config.fish"
+alias nneofetch="$EDITOR ~/.config/neofetch/config.conf"
+alias nawe="$EDITOR ~/.config/awesome/rc.lua"
+
+#reading logs with bat
+alias lcalamares="bat /var/log/Calamares.log"
+alias lpacman="bat /var/log/pacman.log"
+alias lxorg="bat /var/log/Xorg.0.log"
+alias lxorgo="bat /var/log/Xorg.0.log.old"
 
 #gpg
 #verify signature for isos
@@ -348,7 +402,8 @@ alias fixkey="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
 alias fixkeys="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
 alias fix-key="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
 alias fix-keys="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
-alias fix-sddm-config="/usr/local/bin/arcolinux-fix-sddm-config"
+#fix-sddm-config is no longer an alias but an application - part of ATT
+#alias fix-sddm-config="/usr/local/bin/arcolinux-fix-sddm-config"
 alias fix-pacman-conf="/usr/local/bin/arcolinux-fix-pacman-conf"
 alias fix-pacman-keyserver="/usr/local/bin/arcolinux-fix-pacman-gpg-conf"
 
@@ -366,13 +421,14 @@ alias sysfailed="systemctl list-units --failed"
 
 #shutdown or reboot
 alias ssn="sudo shutdown now"
-alias sr="sudo reboot"
+alias sr="reboot"
 
 #update betterlockscreen images
 alias bls="betterlockscreen -u /usr/share/backgrounds/arcolinux/"
 
 #give the list of all installed desktops - xsessions desktops
 alias xd="ls /usr/share/xsessions"
+alias xdw="ls /usr/share/wayland-sessions"
 
 # # ex = EXtractor for all kinds of archives
 # # usage: ex <file>
@@ -394,7 +450,6 @@ ex ()
       *.deb)       ar x $1      ;;
       *.tar.xz)    tar xf $1    ;;
       *.tar.zst)   tar xf $1    ;;
-      *.jar)       jar xvf $1   ;;
       *)           echo "'$1' cannot be extracted via ex()" ;;
     esac
   else
@@ -441,6 +496,16 @@ pow() {
 }
 
 
+
+
+
+
+
+
+
+#wayland aliases
+alias wsimplescreenrecorder="wf-recorder -a"
+
 #btrfs aliases
 alias btrfsfs="sudo btrfs filesystem df /"
 alias btrfsli="sudo btrfs su li / -t"
@@ -460,7 +525,8 @@ alias ltupd="leftwm-theme update"
 alias ltupg="leftwm-theme upgrade"
 
 #arcolinux applications
-alias att="arcolinux-tweak-tool"
+#att is a symbolic link now
+#alias att="archlinux-tweak-tool"
 alias adt="arcolinux-desktop-trasher"
 alias abl="arcolinux-betterlockscreen"
 alias agm="arcolinux-get-mirrors"
@@ -471,11 +537,27 @@ alias atm="arcolinux-tellme"
 alias avs="arcolinux-vbox-share"
 alias awa="arcolinux-welcome-app"
 
-#remove
+#git
 alias rmgitcache="rm -r ~/.cache/git"
+alias grh="git reset --hard"
+
+#pamac
+alias pamac-unlock="sudo rm /var/tmp/pamac/dbs/db.lock"
 
 #moving your personal files and folders from /personal to ~
 alias personal='cp -Rf /personal/* ~'
+
+alias clip="xclip -sel clip"
+alias cls="clear"
+alias open="xdg-open $1"
+eval "$(zoxide init zsh)"
+alias cd="z $*"
+#set extern="/run/media/lucas/EXTERN"
+alias disks_list="sudo blkid"
+#set disks="/run/media/lucas"
+alias ccat="command cat"
+alias neovim="nvim"
+
 
 #create a file called .zshrc-personal and put all your personal aliases
 #in there. They will not be overwritten by skel.
@@ -497,11 +579,12 @@ neofetch
 #sysinfo-retro
 #cpufetch
 #colorscript random
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
 
-alias open="xdg-open $1"
-alias neovim="nvim $1"
-alias obliterate="sudo pkill $1 && sudo kilall $1"
-alias restart="pkill $1 && $1"
-alias cls="clear"
-eval "$(zoxide init zsh)"
-alias cd="z $*"
+# pnpm
+export PNPM_HOME="/home/lucas/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
