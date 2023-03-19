@@ -14,7 +14,7 @@
 --   end
 -- })
 doom.use_package({
-  "andweeb/presence.nvim",
+  "lucascompython/presence.nvim",
   config = function()
     require("presence").setup({
       -- General options
