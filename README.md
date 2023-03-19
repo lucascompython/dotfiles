@@ -16,7 +16,8 @@ I mostly use [Zsh](https://www.zsh.org) with [Oh My Zsh](https://ohmyz.sh) and [
 
 ## Editors
 
-I use Neovim and Emacs for my text editing needs. I use a customized version of [doom-nvim](https://github.com/doom-neovim/doom-nvim) for my Neovim config and a customized version of [doom-emacs](https://github.com/doomemacs/doomemacs) for my Emacs config.
+I use Neovim and Emacs for my text editing needs. I use a customized version of [doom-nvim](https://github.com/doom-neovim/doom-nvim) for my Neovim config and a customized version of [doom-emacs](https://github.com/doomemacs/doomemacs) for my Emacs config.  
+Don't forget to configure Github Copilot [on Emacs](https://github.com/zerolfx/copilot.el) and [on Neovim](https://github.com/github/copilot.vim).
 
 ## Install
 
