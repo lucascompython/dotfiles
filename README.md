@@ -34,5 +34,6 @@ cp -rf ./dotfiles/emacs.d/ ~/.doom.d/
 Install [doom-nvim](https://github.com/doom-neovim/doom-nvim#install) and then:
 
 ```bash
+mv ./dotfiles/config/nvim/lsp_init.lua ~/.config/nvim/lua/doom/modules/features/lsp/init.lua # for github copilot tab completions
 cp -rf ./dotfiles/config/nvim/ ~/.config/nvim/
 ```
