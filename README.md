@@ -27,7 +27,7 @@ Install [doom-emacs](https://github.com/doomemacs/doomemacs#install) and then:
 
 ```bash
 git clone https://lucascompython/dotfiles.git
-cp -rf ./dotfiles/emacs.d/ ~/.doom.d/
+cp -a ./dotfiles/emacs.d/. ~/.doom.d/
 ```
 
 ### Neovim
