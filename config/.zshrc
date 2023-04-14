@@ -565,7 +565,8 @@ alias neovim="nvim"
 [[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
 
 # reporting tools - install when not installed
-neofetch
+#neofetch
+fastfatch
 #screenfetch
 #alsi
 #paleofetch
