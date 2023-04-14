@@ -9,7 +9,8 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 ;
-(package! elcord 
+
+(package! elcord
   :recipe (:host github :repo "lucascompython/elcord"))
 
 (package! copilot

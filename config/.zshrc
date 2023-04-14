@@ -150,7 +150,7 @@ alias lt='exa -aT --color=always --group-directories-first --icons' # tree listi
 alias l.='exa -a | egrep "^\."'
 
 # Replace cat with bat
-alias cat='bat -pp -n --pager=never --style header --style --style snip --style changes --style header --style numbers'
+alias cat='bat -pp -n --pager=never --style header --style snip --style changes --style header --style numbers'
 alias less="bat"
 
 
@@ -565,8 +565,7 @@ alias neovim="nvim"
 [[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
 
 # reporting tools - install when not installed
-#neofetch
-fastfatch
+neofetch
 #screenfetch
 #alsi
 #paleofetch
@@ -589,3 +588,23 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 export PNPM_HOME="/home/lucas/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+
+# Wasmer
+export WASMER_DIR="/home/lucas/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+
+
+
+if [[ `uname` == Darwin ]]; then
+    MAX_MEMORY_UNITS=KB
+else
+    MAX_MEMORY_UNITS=MB
+fi
+
+TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
+'avg shared (code):         %X KB'$'\n'\
+'avg unshared (data/stack): %D KB'$'\n'\
+'total (sum):               %K KB'$'\n'\
+'max memory:                %M '$MAX_MEMORY_UNITS''$'\n'\
+'page faults from disk:     %F'$'\n'\
+'other page faults:         %R'
