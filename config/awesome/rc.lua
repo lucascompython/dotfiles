@@ -405,8 +405,8 @@ globalkeys = my_table.join(
         {description = scrlocker, group = "alt+ctrl"}),
     awful.key({ modkey1, altkey   }, "o", function() awful.spawn.with_shell("$HOME/.config/awesome/scripts/picom-toggle.sh") end,
         {description = "Picom toggle", group = "alt+ctrl"}),
-    awful.key({ modkey1, altkey   }, "s", function() awful.util.spawn( mediaplayer ) end,
-        {description = mediaplayer, group = "alt+ctrl"}),
+    --awful.key({ modkey1, altkey   }, "s", function() awful.util.spawn( mediaplayer ) end,
+        --{description = mediaplayer, group = "alt+ctrl"}),
     awful.key({ modkey1, altkey   }, "t", function() awful.util.spawn( terminal ) end,
         {description = terminal, group = "alt+ctrl"}),
     awful.key({ modkey1, altkey   }, "u", function() awful.util.spawn( "pavucontrol" ) end,
@@ -457,9 +457,10 @@ globalkeys = my_table.join(
         {description = "Scrot", group = "screenshots"}),
     awful.key({ modkey1           }, "Print", function () awful.util.spawn( "xfce4-screenshooter" ) end,
         {description = "Xfce screenshot", group = "screenshots"}),
-    --awful.key({ modkey1, "Shift"  }, "Print", function() awful.util.spawn("gnome-screenshot -i") end,
-    --    {description = "Gnome screenshot", group = "screenshots"}),
 
+    awful.key({modkey1, altkey}, "s", function () awful.spawn("flameshot gui") end,
+        {description = "Flameshot screenshot", group = "screenshots"}),
+    
     -- Personal keybindings}}}
 
 
@@ -1149,7 +1150,11 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 
 -- }}}
-
+client.connect_signal("manage", function (c)
+    c.shape = function(cr,w,h)
+        gears.shape.rounded_rect(cr,w,h,10)
+    end
+end)
 -- Autostart applications
 awful.spawn.with_shell("~/.config/awesome/autostart.sh")
 awful.spawn.with_shell("picom -b --config  $HOME/.config/awesome/picom.conf")

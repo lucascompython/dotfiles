@@ -609,3 +609,8 @@ TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 'max memory:                %M '$MAX_MEMORY_UNITS''$'\n'\
 'page faults from disk:     %F'$'\n'\
 'other page faults:         %R'
+
+
+cs() {
+    cd "$@" && ls
+}
