@@ -1150,11 +1150,11 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 
 -- }}}
-client.connect_signal("manage", function (c)
-    c.shape = function(cr,w,h)
-        gears.shape.rounded_rect(cr,w,h,10)
-    end
-end)
+--client.connect_signal("manage", function (c)
+--    c.shape = function(cr,w,h)
+--        gears.shape.rounded_rect(cr,w,h,10)
+--    end
+--end)
 -- Autostart applications
 awful.spawn.with_shell("~/.config/awesome/autostart.sh")
 awful.spawn.with_shell("picom -b --config  $HOME/.config/awesome/picom.conf")

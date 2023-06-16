@@ -559,11 +559,35 @@ alias ccat="command cat"
 alias neovim="nvim"
 alias fsi="dotnet fsi"
 
-#fuck pip
+# Fuck pip command. 
+# See. PEP 668. 
 fpip() {
     python3 -m pip $@ --break-system-packages
 }
-
+# The "new" pip.
+# See PEP 668.
+npip() {
+  case "$1" in
+    "install")
+      shift 1
+      sudo pacman -S python-"$@"
+      ;;
+    "uninstall")
+      shift 1
+      sudo pacman -Rsn python-"$@"
+      ;;
+    "search")
+      shift 1
+      pacman -Ss python-"$@"
+      ;;
+    "freeze")
+      pacman -Qs python
+      ;;
+    *)
+      echo "Invalid command. Usage: npip [install|uninstall|search|freeze]"
+      ;;
+  esac
+}
 
 
 #create a file called .zshrc-personal and put all your personal aliases
