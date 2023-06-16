@@ -557,6 +557,13 @@ alias disks_list="sudo blkid"
 #set disks="/run/media/lucas"
 alias ccat="command cat"
 alias neovim="nvim"
+alias fsi="dotnet fsi"
+
+#fuck pip
+fpip() {
+    python3 -m pip $@ --break-system-packages
+}
+
 
 
 #create a file called .zshrc-personal and put all your personal aliases
