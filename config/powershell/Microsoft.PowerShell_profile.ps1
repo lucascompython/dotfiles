@@ -34,4 +34,31 @@ Set-PSReadLineKeyHandler -Key Alt+w `
                             [Microsoft.Powershell.PSConsoleReadLine]::AddToHistory($line)
                             [Microsoft.Powershell.PSConsoleReadLine]::RevertLine()
                          }
+Set-Alias python3 py
+Set-Alias nodejs node
+Set-Alias python py
+Set-Alias csi "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\bin\Roslyn\csi.exe"
+Set-Alias fsi "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\FSharp\Tools\fsi.exe"
+Set-Alias csc "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\bin\Roslyn\csc.exe"
+Set-Alias fsc "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\FSharp\Tools\fsc.exe"
+Set-Alias which get-command
+
+
+function yta-mp3 {
+  yt-dlp --extract-audio --audio-format mp3 $args
+
+}
+
+
+
+
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
 
