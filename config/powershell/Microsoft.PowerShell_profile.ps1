@@ -57,7 +57,7 @@ function global:which ([Parameter(Mandatory = $true)][string] $cmd) {
     return $path.Path
   }
   # if an alias get the location that the alias is pointing to
-  return Split-Path $path.Definition -Parent 
+  return $path.Definition
 }
 
 
