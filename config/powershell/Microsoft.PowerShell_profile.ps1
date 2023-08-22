@@ -41,6 +41,25 @@ Set-Alias csc "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\C
 Set-Alias fsc "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\FSharp\Tools\fsc.exe"
 
 
+function global:pkill {
+  [CmdLetBinding()]
+  param (
+    [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+    [string]$Name,
+    [switch]$Force
+  )
+
+  process {
+    $params = @{
+      Name = $Name
+    }
+    if ($Force) {
+      $params.Add("Force", $true)
+    }
+    Get-Process @params | Stop-Process
+  }
+}
+
 function global:yta-mp3 {
   yt-dlp --extract-audio --audio-format mp3 $args
 }
@@ -71,3 +90,4 @@ $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
+
