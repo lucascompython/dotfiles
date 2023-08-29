@@ -1,0 +1,9 @@
+[Unit]
+Description=Wallpaper Changer Service
+
+[Service]
+Type=simple
+ExecStart=/home/lucas/Desktop/wcbt/target/release/wcbt
+
+[Install]
+WantedBy=default.target
