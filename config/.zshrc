@@ -143,12 +143,12 @@ fi
 #alias l.="ls -A | egrep '^\.'"
 #alias listdir="ls -d */ > list"
 
-# Changing "ls" to "exa"
-alias ls='exa -al --color=always --group-directories-first --icons' # my preferred listing
-alias la='exa -a --color=always --group-directories-first --icons'  # all files and dirs
-alias ll='exa -l --color=always --group-directories-first --icons'  # long format
-alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
-alias l.='exa -a | egrep "^\."'
+# Changing "ls" to "eza"
+alias ls='eza -al --color=always --group-directories-first --icons' # my preferred listing
+alias la='eza -a --color=always --group-directories-first --icons'  # all files and dirs
+alias ll='eza -l --color=always --group-directories-first --icons'  # long format
+alias lt='eza -aT --color=always --group-directories-first --icons' # tree listing
+alias l.='eza -a | egrep "^\."'
 
 # Replace cat with bat
 alias cat='bat -pp -n --pager=never --style header --style snip --style changes --style header --style numbers'
@@ -559,6 +559,20 @@ alias disks_list="sudo blkid"
 alias ccat="command cat"
 alias neovim="nvim"
 alias fsi="dotnet fsi"
+alias service="sudo systemctl"
+
+
+
+sz() {
+    local size=$(du -h $(which $1))
+    echo "$size"
+}
+wcat() {
+    local file=$(which $1)
+    echo "$file"
+    cat $file
+}
+
 
 # Fuck pip command. 
 # See. PEP 668. 
@@ -573,9 +587,13 @@ npip() {
       shift 1
       sudo pacman -S python-"$@"
       ;;
-    "uninstall")
+    "uninstallall")
       shift 1
       sudo pacman -Rsn python-"$@"
+      ;;
+    "uninstall")
+      shift 1
+      sudo pacman -R python-"$@"
       ;;
     "search")
       shift 1
@@ -585,7 +603,7 @@ npip() {
       pacman -Qs python
       ;;
     *)
-      echo "Invalid command. Usage: npip [install|uninstall|search|freeze]"
+      echo "Invalid command. Usage: npip [install|uninstall|search|freeze|uninstallall]"
       ;;
   esac
 }
@@ -646,3 +664,14 @@ TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 cs() {
     cd "$@" && ls
 }
+
+# bun completions
+[ -s "/home/lucas/.bun/_bun" ] && source "/home/lucas/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
