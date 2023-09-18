@@ -698,11 +698,11 @@ globalkeys = my_table.join(
             os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
             beautiful.volume.update()
         end),
-    awful.key({ modkey1, "Shift" }, "0",
-        function ()
-            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
+--    awful.key({ modkey1, "Shift" }, "0",
+--        function ()
+--            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
+--            beautiful.volume.update()
+--        end),
 
     --Media keys supported by vlc, spotify, audacious, xmm2, ...
     awful.key({}, "XF86AudioPlay", function() awful.util.spawn("playerctl play-pause", false) end),
