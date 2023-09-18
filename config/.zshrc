@@ -1,4 +1,3 @@
-[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return # for Emacs ssh
 ###
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -560,6 +559,7 @@ alias ccat="command cat"
 alias neovim="nvim"
 alias fsi="dotnet fsi"
 alias service="sudo systemctl"
+alias awesome_restart="echo 'awesome.restart()' | awesome-client" 
 
 
 
