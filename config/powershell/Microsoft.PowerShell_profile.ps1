@@ -81,14 +81,14 @@ function global:which ([Parameter(Mandatory = $true)][string] $cmd) {
 }
 
 function locate {
-  Get-ChildItem -Recurse . @args
+  Get-ChildItem -Recurse . @args -ErrorAction SilentlyContinue 
 }
 function global-locate {
   Get-ChildItem -Recurse / @args -ErrorAction SilentlyContinue
 }
 
 function clocate {
-  cmd /C dir @args /s
+  cmd /C dir @args /s /b
 }
 
 # Import the Chocolatey Profile that contains the necessary code to enable
