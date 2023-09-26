@@ -87,6 +87,10 @@ function global-locate {
   Get-ChildItem -Recurse / @args -ErrorAction SilentlyContinue
 }
 
+function clocate {
+  cmd /C dir @args /s
+}
+
 # Import the Chocolatey Profile that contains the necessary code to enable
 # tab-completions to function for `choco`.
 # Be aware that if you are missing these lines from your profile, tab completion
