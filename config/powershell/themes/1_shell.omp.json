@@ -111,7 +111,7 @@
           "style": "plain",
           "powerline_symbol": "\uE0B0",
           "foreground": "#ee79d1",
-          "template": " \uE7a8{{ .Full }}"
+          "template": " \uE7a8 {{ .Full }}"
         },
         {
           "type": "dotnet",
