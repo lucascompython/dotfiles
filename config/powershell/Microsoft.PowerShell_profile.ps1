@@ -35,6 +35,7 @@ Set-PSReadLineKeyHandler -Key Alt+w `
 Set-Alias python3 py
 Set-Alias nodejs node
 Set-Alias python py
+Set-Alias touch New-Item
 Set-Alias csi "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\bin\Roslyn\csi.exe"
 Set-Alias fsi "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\FSharp\Tools\fsi.exe"
 Set-Alias csc "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\bin\Roslyn\csc.exe"
@@ -79,7 +80,12 @@ function global:which ([Parameter(Mandatory = $true)][string] $cmd) {
   return $path.Definition
 }
 
-
+function locate {
+  Get-ChildItem -Recurse . @args
+}
+function global-locate {
+  Get-ChildItem -Recurse / @args -ErrorAction SilentlyContinue
+}
 
 # Import the Chocolatey Profile that contains the necessary code to enable
 # tab-completions to function for `choco`.
