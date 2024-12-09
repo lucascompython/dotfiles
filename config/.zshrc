@@ -1,3 +1,6 @@
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
+
 ###
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -119,7 +122,7 @@ export HISTCONTROL=ignoreboth:erasedups
 
 # Make nano the default editor
 
-export EDITOR='nvim'
+export EDITOR='vim'
 export VISUAL='emacs'
 
 #PS1='[\u@\h \W]\$ '
@@ -143,10 +146,10 @@ fi
 #alias listdir="ls -d */ > list"
 
 # Changing "ls" to "eza"
-alias ls='eza -al --color=always --group-directories-first --icons' # my preferred listing
-alias la='eza -a --color=always --group-directories-first --icons'  # all files and dirs
-alias ll='eza -l --color=always --group-directories-first --icons'  # long format
-alias lt='eza -aT --color=always --group-directories-first --icons' # tree listing
+alias ls='eza -al --color=always --group-directories-first --icons always' # my preferred listing
+alias la='eza -a --color=always --group-directories-first --icons always'  # all files and dirs
+alias ll='eza -l --color=always --group-directories-first --icons always'  # long format
+alias lt='eza -aT --color=always --group-directories-first --icons always' # tree listing
 alias l.='eza -a | egrep "^\."'
 
 # Replace cat with bat
@@ -224,10 +227,12 @@ alias merge="xrdb -merge ~/.Xresources"
 # pacman
 alias pacman="sudo pacman --color auto"
 alias update="sudo pacman -Syyu"
+alias upd="sudo pacman -Syyu"
 
 # paru as aur helper - updates everything
 alias pksyua="paru -Syu --noconfirm"
 alias upall="paru -Syu --noconfirm"
+alias upa="paru -Syu --noconfirm"
 
 #ps
 alias psa="ps auxf"
@@ -235,6 +240,7 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 
 #grub update
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 #grub issue 08/2022
 alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi"
 
@@ -372,10 +378,12 @@ alias nsamba="sudo $EDITOR /etc/samba/smb.conf"
 alias ngnupgconf="sudo $EDITOR /etc/pacman.d/gnupg/gpg.conf"
 alias nhosts="sudo $EDITOR /etc/hosts"
 alias nhostname="sudo $EDITOR /etc/hostname"
+alias nresolv="sudo $EDITOR /etc/resolv.conf"
 alias nb="$EDITOR ~/.bashrc"
 alias nz="$EDITOR ~/.zshrc"
 alias nf="$EDITOR ~/.config/fish/config.fish"
 alias nneofetch="$EDITOR ~/.config/neofetch/config.conf"
+alias nplymouth="sudo $EDITOR /etc/plymouth/plymouthd.conf"
 alias nawe="$EDITOR ~/.config/awesome/rc.lua"
 
 #reading logs with bat
@@ -406,6 +414,8 @@ alias fix-keys="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
 #alias fix-sddm-config="/usr/local/bin/arcolinux-fix-sddm-config"
 alias fix-pacman-conf="/usr/local/bin/arcolinux-fix-pacman-conf"
 alias fix-pacman-keyserver="/usr/local/bin/arcolinux-fix-pacman-gpg-conf"
+alias fix-grub="/usr/local/bin/arcolinux-fix-grub"
+alias fixgrub="/usr/local/bin/arcolinux-fix-grub"
 
 #maintenance
 alias big="expac -H M '%m\t%n' | sort -h | nl"
@@ -504,7 +514,8 @@ pow() {
 
 
 #wayland aliases
-alias wsimplescreenrecorder="wf-recorder -a"
+alias wsimplescreen="wf-recorder -a"
+alias wsimplescreenrecorder="wf-recorder -a -c h264_vaapi -C aac -d /dev/dri/renderD128 --file=recording.mp4"
 
 #btrfs aliases
 alias btrfsfs="sudo btrfs filesystem df /"
@@ -537,6 +548,7 @@ alias atm="arcolinux-tellme"
 alias avs="arcolinux-vbox-share"
 alias awa="arcolinux-welcome-app"
 
+
 #git
 alias rmgitcache="rm -r ~/.cache/git"
 alias grh="git reset --hard"
@@ -546,6 +558,11 @@ alias pamac-unlock="sudo rm /var/tmp/pamac/dbs/db.lock"
 
 #moving your personal files and folders from /personal to ~
 alias personal='cp -Rf /personal/* ~'
+
+#create a file called .zshrc-personal and put all your personal aliases
+#in there. They will not be overwritten by skel.
+
+[[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
 
 alias clip="xclip -sel clip"
 alias cls="clear"
@@ -572,7 +589,6 @@ wcat() {
     echo "$file"
     cat $file
 }
-
 
 # Fuck pip command. 
 # See. PEP 668. 
@@ -608,44 +624,6 @@ npip() {
   esac
 }
 
-
-#create a file called .zshrc-personal and put all your personal aliases
-#in there. They will not be overwritten by skel.
-
-[[ -f ~/.zshrc-personal ]] && . ~/.zshrc-personal
-
-# reporting tools - install when not installed
-#neofetch
-fastfetch
-#screenfetch
-#alsi
-#paleofetch
-#fetch
-#hfetch
-#sfetch
-#ufetch
-#ufetch-arco
-#pfetch
-#sysinfo
-#sysinfo-retro
-#cpufetch
-#colorscript random
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
-
-# pnpm
-export PNPM_HOME="/home/lucas/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-# pnpm end
-
-# Wasmer
-export WASMER_DIR="/home/lucas/.wasmer"
-[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
-
-
-
 if [[ `uname` == Darwin ]]; then
     MAX_MEMORY_UNITS=KB
 else
@@ -664,6 +642,29 @@ TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 cs() {
     cd "$@" && ls
 }
+
+
+
+alias clip="xclip -sel clip"
+
+# reporting tools - install when not installed
+#neofetch
+fastfetch
+#screenfetch
+#alsi
+#paleofetch
+#fetch
+#hfetch
+#sfetch
+#ufetch
+#ufetch-arco
+#pfetch
+#sysinfo
+#sysinfo-retro
+#cpufetch
+#colorscript random
+eval "$(zoxide init zsh)"
+alias cd="z"
 
 # bun completions
 [ -s "/home/lucas/.bun/_bun" ] && source "/home/lucas/.bun/_bun"

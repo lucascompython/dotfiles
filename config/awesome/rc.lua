@@ -375,7 +375,7 @@ globalkeys = my_table.join(
 
 
     -- ctrl + shift + ...
-    awful.key({ modkey1, "Shift"  }, "Escape", function() awful.util.spawn("xfce4-taskmanager") end),
+    -- awful.key({ modkey1, "Shift"  }, "Escape", function() awful.util.spawn("xfce4-taskmanager") end),
 
 
     -- ctrl+alt +  ...
@@ -405,8 +405,8 @@ globalkeys = my_table.join(
         {description = scrlocker, group = "alt+ctrl"}),
     awful.key({ modkey1, altkey   }, "o", function() awful.spawn.with_shell("$HOME/.config/awesome/scripts/picom-toggle.sh") end,
         {description = "Picom toggle", group = "alt+ctrl"}),
-    --awful.key({ modkey1, altkey   }, "s", function() awful.util.spawn( mediaplayer ) end,
-        --{description = mediaplayer, group = "alt+ctrl"}),
+--    awful.key({ modkey1, altkey   }, "s", function() awful.util.spawn( mediaplayer ) end,
+--        {description = mediaplayer, group = "alt+ctrl"}),
     awful.key({ modkey1, altkey   }, "t", function() awful.util.spawn( terminal ) end,
         {description = terminal, group = "alt+ctrl"}),
     awful.key({ modkey1, altkey   }, "u", function() awful.util.spawn( "pavucontrol" ) end,
@@ -483,11 +483,11 @@ globalkeys = my_table.join(
     awful.key({ altkey, "Shift"   }, "Tab",  awful.tag.viewprev,
         {description = "view previous", group = "tag"}),
 
-     -- Tag browsing modkey + tab
-    awful.key({ modkey,           }, "Tab",   awful.tag.viewnext,
-        {description = "view next", group = "tag"}),
-    awful.key({ modkey, "Shift"   }, "Tab",  awful.tag.viewprev,
-        {description = "view previous", group = "tag"}),
+  --   -- Tag browsing modkey + tab
+  --  awful.key({ modkey,           }, "Tab",   awful.tag.viewnext,
+  --      {description = "view next", group = "tag"}),
+  --  awful.key({ modkey, "Shift"   }, "Tab",  awful.tag.viewprev,
+  --      {description = "view previous", group = "tag"}),
 
 
     -- Non-empty tag browsing
@@ -693,11 +693,11 @@ globalkeys = my_table.join(
             os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
             beautiful.volume.update()
         end),
-    awful.key({ modkey1, "Shift" }, "m",
-        function ()
-            os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end),
+   -- awful.key({ modkey1, "Shift" }, "m",
+   --     function ()
+   --         os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
+   --         beautiful.volume.update()
+   --     end),
 --    awful.key({ modkey1, "Shift" }, "0",
 --        function ()
 --            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
@@ -705,12 +705,85 @@ globalkeys = my_table.join(
 --        end),
 
     --Media keys supported by vlc, spotify, audacious, xmm2, ...
-    awful.key({}, "XF86AudioPlay", function() awful.util.spawn("playerctl play-pause", false) end),
-    awful.key({}, "XF86AudioNext", function() awful.util.spawn("playerctl next", false) end),
-    awful.key({}, "XF86AudioPrev", function() awful.util.spawn("playerctl previous", false) end),
-    awful.key({}, "XF86AudioStop", function() awful.util.spawn("playerctl stop", false) end)
+    --awful.key({}, "XF86AudioPlay", function() awful.util.spawn("playerctl play-pause", false) end),
+    --awful.key({}, "XF86AudioNext", function() awful.util.spawn("playerctl next", false) end),
+    --awful.key({}, "XF86AudioPrev", function() awful.util.spawn("playerctl previous", false) end),
+    --awful.key({}, "XF86AudioStop", function() awful.util.spawn("playerctl stop", false) end),
+
+--Media keys supported by mpd.
+    awful.key({}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end),
+    awful.key({}, "XF86AudioNext", function () awful.util.spawn("mpc next") end),
+    awful.key({}, "XF86AudioPrev", function () awful.util.spawn("mpc prev") end),
+    awful.key({}, "XF86AudioStop", function () awful.util.spawn("mpc stop") end)
+
+    -- MPD control
+   -- awful.key({ modkey1, "Shift" }, "Up",
+   --     function ()
+   --         os.execute("mpc toggle")
+   --         beautiful.mpd.update()
+   --     end,
+   --     {description = "mpc toggle", group = "widgets"}),
+   -- awful.key({ modkey1, "Shift" }, "Down",
+   --     function ()
+   --         os.execute("mpc stop")
+   --         beautiful.mpd.update()
+   --     end,
+   --     {description = "mpc stop", group = "widgets"}),
+   -- awful.key({ modkey1, "Shift" }, "Left",
+   --     function ()
+   --         os.execute("mpc prev")
+   --         beautiful.mpd.update()
+   --     end,
+   --     {description = "mpc prev", group = "widgets"}),
+   -- awful.key({ modkey1, "Shift" }, "Right",
+   --     function ()
+   --         os.execute("mpc next")
+   --         beautiful.mpd.update()
+   --     end,
+   --     {description = "mpc next", group = "widgets"}),
+   -- awful.key({ modkey1, "Shift" }, "s",
 
 
+
+   --     function ()
+   --         local common = { text = "MPD widget ", position = "top_middle", timeout = 2 }
+   --         if beautiful.mpd.timer.started then
+   --             beautiful.mpd.timer:stop()
+   --             common.text = common.text .. lain.util.markup.bold("OFF")
+   --         else
+   --             beautiful.mpd.timer:start()
+   --             common.text = common.text .. lain.util.markup.bold("ON")
+   --         end
+   --         naughty.notify(common)
+   --     end,
+   --     {description = "mpc on/off", group = "widgets"})
+
+    -- Copy primary to clipboard (terminals to gtk)
+    --awful.key({ modkey }, "c", function () awful.spawn.with_shell("xsel | xsel -i -b") end,
+             -- {description = "copy terminal to gtk", group = "hotkeys"}),
+     --Copy clipboard to primary (gtk to terminals)
+    --awful.key({ modkey }, "v", function () awful.spawn.with_shell("xsel -b | xsel") end,
+              --{description = "copy gtk to terminal", group = "hotkeys"}),
+
+
+    -- Default
+    --[[ Menubar
+
+    awful.key({ modkey }, "p", function() menubar.show() end,
+              {description = "show the menubar", group = "super"})
+    --]]
+
+    --awful.key({ altkey }, "x",
+    --          function ()
+    --              awful.prompt.run {
+    --                prompt       = "Run Lua code: ",
+    --                textbox      = awful.screen.focused().mypromptbox.widget,
+    --                exe_callback = awful.util.eval,
+    --                history_path = awful.util.get_cache_dir() .. "/history_eval"
+    --              }
+    --          end,
+    --          {description = "lua execute prompt", group = "awesome"})
+    --]]
 )
 
 clientkeys = my_table.join(
@@ -1077,11 +1150,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 
 -- }}}
---client.connect_signal("manage", function (c)
---    c.shape = function(cr,w,h)
---        gears.shape.rounded_rect(cr,w,h,10)
---    end
---end)
+
 -- Autostart applications
 awful.spawn.with_shell("~/.config/awesome/autostart.sh")
 awful.spawn.with_shell("picom -b --config  $HOME/.config/awesome/picom.conf")
