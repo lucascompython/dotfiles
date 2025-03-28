@@ -25,5 +25,12 @@
       "ctrl-w ctrl-a": "pane::SplitVertical",
       "ctrl-w ctrl-k": "workspace::ActivatePaneUp"
     }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-w ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-w ctrl-l": "workspace::ActivatePaneRight"
+    }
   }
 ]
