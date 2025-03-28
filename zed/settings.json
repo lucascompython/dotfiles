@@ -25,5 +25,15 @@
     "light": "One Light",
     "dark": "Catppuccin Macchiato"
   },
-  "relative_line_numbers": true
+  "relative_line_numbers": true,
+  "diagnostics": {
+    "include_warnings": true,
+    "inline": {
+      "enabled": true,
+      "update_debounce_ms": 150,
+      "padding": 4,
+      "min_column": 0,
+      "max_severity": null
+    }
+  }
 }
