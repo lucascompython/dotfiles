@@ -32,5 +32,12 @@
       "ctrl-w ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-w ctrl-l": "workspace::ActivatePaneRight"
     }
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "ctrl-i": "editor::ShowSignatureHelp"
+    }
   }
 ]
+
