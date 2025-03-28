@@ -1,0 +1,29 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "ctrl-`": null
+    }
+  },
+
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-w a": "pane::SplitVertical"
+    }
+  },
+  {
+    "context": "GitPanel || ProjectPanel || CollabPanel || OutlinePanel || ChatPanel || VimControl || EmptyPane || SharedScreen || MarkdownPreview || KeyContextView || Window || Terminal",
+    "bindings": {
+      "ctrl-w ctrl-a": "pane::SplitVertical",
+      "ctrl-w ctrl-k": "workspace::ActivatePaneUp"
+    }
+  }
+]
