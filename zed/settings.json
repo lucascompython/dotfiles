@@ -23,7 +23,7 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Catppuccin Macchiato"
+    "dark": "Catppuccin Frappé"
   },
   "relative_line_numbers": true,
   "diagnostics": {
@@ -35,5 +35,15 @@
       "min_column": 0,
       "max_severity": null
     }
+  },
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true,
+    "show_background": false,
+    "edit_debounce_ms": 700,
+    "scroll_debounce_ms": 50,
+    "toggle_on_modifiers_press": null
   }
 }

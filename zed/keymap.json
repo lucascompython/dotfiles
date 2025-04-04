@@ -7,6 +7,14 @@
 // from the command palette.
 [
   {
+    "context": "VimControl && !menu",
+
+    "bindings": {
+      "ctrl-b": "workspace::ToggleLeftDock"
+    }
+  },
+
+  {
     "context": "Workspace",
     "bindings": {
       // "ctrl-`": null
@@ -40,4 +48,3 @@
     }
   }
 ]
-
