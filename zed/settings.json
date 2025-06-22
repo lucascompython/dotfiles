@@ -76,6 +76,16 @@
   },
   "lsp": {
     "rust-analyzer": {
+      "initialization_options": {
+        "check": {
+          "command": "clippy",
+          "features": "all"
+        },
+        "cargo": {
+          // "allFeatures": true,
+          "features": ["ssr", "hydrate"]
+        }
+      },
       "procMacro": {
         "ignored": [
           // optional:
