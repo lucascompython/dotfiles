@@ -9,7 +9,7 @@
 {
   "icon_theme": "Catppuccin Frappé",
   "agent": {
-    "default_profile": "all",
+    "default_profile": "ask",
     "profiles": {
       "all": {
         "name": "all",
@@ -38,7 +38,7 @@
     },
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-3.7-sonnet-thought"
+      "model": "claude-sonnet-4"
     },
     "version": "2"
   },
@@ -73,5 +73,16 @@
     "edit_debounce_ms": 700,
     "scroll_debounce_ms": 50,
     "toggle_on_modifiers_press": null
+  },
+  "lsp": {
+    "rust-analyzer": {
+      "procMacro": {
+        "ignored": [
+          // optional:
+          // "component",
+          "server"
+        ]
+      }
+    }
   }
 }
