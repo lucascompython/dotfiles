@@ -1,7 +1,8 @@
-
 * {
-    font-family: "Fira Sans Semibold", "Font Awesome 6 Free", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 14px;  /* Slightly smaller font size */
+    font-family:
+        "Fira Sans Semibold", "Font Awesome 6 Free", FontAwesome, Roboto,
+        Helvetica, Arial, sans-serif;
+    font-size: 14px; /* Slightly smaller font size */
     font-weight: 900;
     margin: 0;
     padding: 0;
@@ -28,22 +29,24 @@
 }
 
 window#waybar.hidden {
-  opacity: 0.2;
+    opacity: 0.2;
 }
 
 #workspaces button {
-    padding: 3px 5px;  /* Adjusted padding to reduce height */
-    margin: 3px 5px;    /* Reduced margin slightly */
+    padding: 3px 5px; /* Adjusted padding to reduce height */
+    margin: 3px 5px; /* Reduced margin slightly */
     border-radius: 6px;
     color: @foreground;
     background-color: #111827;
     transition: all 0.3s ease-in-out;
-    font-size: 13px;  /* Slightly smaller font size */
+    font-size: 13px; /* Slightly smaller font size */
 }
 
 #workspaces button.active {
     color: @foreground;
-    background: #025939;
+    /* background: #025939; */
+    /* set the backgrond to something pinkish */
+    background: #fb958b;
 }
 
 #workspaces button:hover {
@@ -57,16 +60,16 @@ window#waybar.hidden {
 #workspaces {
     background-color: #111827;
     border-radius: 14px;
-    padding: 3px 6px;  /* Adjusted padding to reduce height */
+    padding: 3px 6px; /* Adjusted padding to reduce height */
 }
 
 #window {
     background-color: #111827;
-    font-size: 15px;   /* Slightly smaller font size */
+    font-size: 15px; /* Slightly smaller font size */
     font-weight: 800;
     color: @foreground;
     border-radius: 14px;
-    padding: 3px 6px;  /* Reduced padding */
+    padding: 3px 6px; /* Reduced padding */
     margin: 2px;
     opacity: 1;
 }
@@ -102,7 +105,7 @@ window#waybar.hidden {
 #custom-weather.default {
     background-color: #111827;
     border-radius: 14px;
-    padding: 6px;  /* Adjusted padding */
+    padding: 6px; /* Adjusted padding */
 }
 
 #custom-screenshot_t {
@@ -120,7 +123,7 @@ window#waybar.hidden {
 #tray {
     background-color: #111827;
     border-radius: 14px;
-    padding: 6px;  /* Adjusted padding */
+    padding: 6px; /* Adjusted padding */
 }
 
 #cpu {
@@ -151,7 +154,7 @@ window#waybar.hidden {
     background-color: #1b242b;
     color: #6a92d7;
     border-radius: 7.5px;
-    padding: 3px 6px;  /* Adjusted padding */
+    padding: 3px 6px; /* Adjusted padding */
 }
 
 #custom-weather.severe {
