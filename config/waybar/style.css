@@ -45,12 +45,11 @@ window#waybar.hidden {
 #workspaces button.active {
     color: @foreground;
     /* background: #025939; */
-    /* set the backgrond to something pinkish */
     background: #fb958b;
 }
 
 #workspaces button:hover {
-    background: #333333;
+    background: #e75480;
 }
 
 #workspaces button.urgent {
