@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
-echo "Copying emacs config..."
-cp -a ~/.doom.d/. ./emacs.d/
 
-echo "Copying neovim config..."
-cp ~/.config/nvim/{config.lua,modules.lua} ./config/nvim/
+echo "Copying hyprland config..."
+cp -a ~/.config/hypr/. ./config/hypr/
 
-echo "Copying zsh config..."
-cp ~/.zshrc ./config/.zshrc
-
-echo "Copying awesomewm config..."
-cp ~/.config/awesome/rc.lua ./config/awesome/
+echo "Copying waybar config..."
+cp -a ~/.config/waybar/. ./config/waybar/
 
 
+# echo "Copying emacs config..."
+# cp -a ~/.doom.d/. ./emacs.d/
+
+# echo "Copying neovim config..."
+# cp ~/.config/nvim/{config.lua,modules.lua} ./config/nvim/
+
+# echo "Copying zsh config..."
+# cp ~/.zshrc ./config/.zshrc
+
+# echo "Copying awesomewm config..."
+# cp ~/.config/awesome/rc.lua ./config/awesome/
