@@ -36,6 +36,7 @@
         "memory",
         "cpu",
         "battery",
+	//"network",
         //"pulseaudio",
         "wireplumber",
         "custom/screenshot_t",
