@@ -3,10 +3,10 @@
   "app_specific_configuration_path": "$Env:USERPROFILE/applications.json",
   "window_hiding_behaviour": "Cloak",
   "cross_monitor_move_behaviour": "Insert",
-  "default_workspace_padding": 20,
-  "default_container_padding": 20,
+  "default_workspace_padding": 5,
+  "default_container_padding": 5,
   "border": true,
-  "border_width": 8,
+  "border_width": 5,
   "focus_follows_mouse": "Windows",
   "border_offset": -1,
   "animation": {
