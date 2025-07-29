@@ -2,7 +2,7 @@
 
 # Reload whkd configuration
 # alt + o                 : taskkill /f /im whkd.exe && start /b whkd # if shell is cmd
-alt + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden # if shell is pwsh / powershell
+win + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden # if shell is pwsh / powershell
 win + shift + o         : komorebic reload-configuration
 
 win + i                 : komorebic toggle-shortcuts
@@ -47,7 +47,7 @@ win + ctrl + up         : komorebic resize-axis vertical increase
 win + ctrl + down       : komorebic resize-axis vertical decrease
 
 # Manipulate windows
-win + t                 : komorebic toggle-float
+win + v                 : komorebic toggle-float
 # win + shift + f         : komorebic toggle-monocle
 
 # Window manager options
