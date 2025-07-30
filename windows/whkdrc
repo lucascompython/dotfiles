@@ -9,6 +9,7 @@ win + i                 : komorebic toggle-shortcuts
 win + return            : wt.exe
 win + x                 : yasbc toggle-widget powermenu --follow-mouse
 
+
 # App shortcuts - these require shell to be pwsh / powershell
 # The apps will be focused if open, or launched if not open
 # alt + f                 : if ($wshell.AppActivate('Firefox') -eq $False) { start firefox }
