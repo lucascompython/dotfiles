@@ -11,12 +11,16 @@ Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
 
 
-Set-Alias update 'winget upgrade --all --include-unknown'
-Set-Alias touch 'New-Item -Type File -Force'
-# Set-Alias ls 'eza --group-directories-first --icons --git --color=always'
+Set-Alias touch New-Item
+
+
+function global:update {
+  winget upgrade --all --include-unknown
+}
+
+
 
 del alias:ls
-
 
 function global:ls {
   param(
