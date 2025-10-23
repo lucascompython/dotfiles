@@ -39,7 +39,7 @@
 	//"network",
         //"pulseaudio",
         "wireplumber",
-        "custom/screenshot_t",
+        // "custom/screenshot_t",
         "tray",
         "custom/power"
     ],
