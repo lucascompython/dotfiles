@@ -7,9 +7,32 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "indent_guides": {
+    "background_coloring": "indent_aware",
+    "coloring": "indent_aware"
+  },
+  "colorize_brackets": true,
+  "edit_predictions": {
+    "mode": "eager"
+  },
+  "lsp_document_colors": "inlay",
+  "toolbar": {
+    "code_actions": false,
+    "quick_actions": true,
+    "breadcrumbs": true
+  },
+  "minimap": {
+    "show": "never"
+  },
+  "auto_signature_help": false,
   "icon_theme": "Catppuccin Frappé",
   "agent": {
-    "default_profile": "ask",
+    "notify_when_agent_waiting": "never",
+    "inline_assistant_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5-mini"
+    },
+    "default_profile": "all",
     "profiles": {
       "all": {
         "name": "all",
@@ -38,8 +61,8 @@
     },
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4"
-    },
+      "model": "claude-opus-4.5"
+    }
   },
   "features": {
     "edit_prediction_provider": "copilot"
@@ -52,7 +75,7 @@
     "light": "One Light",
     "dark": "Catppuccin Frappé"
   },
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "diagnostics": {
     "include_warnings": true,
     "inline": {
@@ -82,7 +105,7 @@
         },
         "cargo": {
           // "allFeatures": true,
-          "features": ["ssr", "hydrate"]
+          // "features": ["leptos/ssr", "leptos/hydrate"]
         }
       },
       "procMacro": {
