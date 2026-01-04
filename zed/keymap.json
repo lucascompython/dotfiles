@@ -10,41 +10,65 @@
     "context": "VimControl && !menu",
 
     "bindings": {
-      "ctrl-b": "workspace::ToggleLeftDock"
-    }
+      "ctrl-b": "workspace::ToggleLeftDock",
+    },
   },
 
   {
     "context": "Workspace",
     "bindings": {
       // "ctrl-`": null
-    }
+    },
   },
 
   {
     "context": "Editor",
     "bindings": {
-      "ctrl-w a": "pane::SplitVertical"
-    }
+      "ctrl-w a": "pane::SplitVertical",
+    },
   },
   {
     "context": "GitPanel || ProjectPanel || CollabPanel || OutlinePanel || ChatPanel || VimControl || EmptyPane || SharedScreen || MarkdownPreview || KeyContextView || Window || Terminal",
     "bindings": {
       "ctrl-w ctrl-a": "pane::SplitVertical",
-      "ctrl-w ctrl-k": "workspace::ActivatePaneUp"
-    }
+      "ctrl-w ctrl-k": "workspace::ActivatePaneUp",
+    },
   },
   {
     "context": "Terminal",
     "bindings": {
       "ctrl-w ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-w ctrl-l": "workspace::ActivatePaneRight"
-    }
+      "ctrl-w ctrl-l": "workspace::ActivatePaneRight",
+    },
   },
   {
     "context": "vim_mode == normal",
     "bindings": {
-      "ctrl-i": "editor::ShowSignatureHelp"
-    }
-  }
+      "ctrl-i": "editor::ShowSignatureHelp",
+    },
+  },
+  {
+    "context": "((VimControl && !menu) || (!Editor))",
+    "bindings": {
+      "ctrl-w +": "vim::ResizePaneUp",
+    },
+  },
+  {
+    "context": "((VimControl && !menu) || (!Editor))",
+    "bindings": {
+      "ctrl-w -": "vim::ResizePaneDown",
+    },
+  },
+  {
+    "context": "((VimControl && !menu) || (!Editor))",
+    "bindings": {
+      "ctrl-w >": "vim::ResizePaneLeft",
+    },
+  },
+  {
+    "context": "((VimControl && !menu) || (!Editor))",
+    "bindings": {
+      "ctrl-w <": "vim::ResizePaneRight",
+    },
+  },
 ]
