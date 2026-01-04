@@ -6,7 +6,9 @@
     "allow_concurrent_runs": false,
     "reveal": "never",
     "hide": "never",
-    "shell": "system",
+    "shell": {
+      "program": "/usr/bin/sh",
+    },
     "show_command": true,
     "show_summary": false,
   },
