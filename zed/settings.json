@@ -7,6 +7,33 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "terminal": {
+    "shell": {
+      "with_arguments": {
+        "program": "zsh",
+        "args": ["-c", "nvim +terminal +startinsert"],
+        "title_override": null,
+      },
+    },
+  },
+  "outline_panel": {
+    "button": true,
+  },
+  "tabs": {
+    "file_icons": true,
+    "git_status": true,
+  },
+  "tab_bar": {
+    "show": true,
+  },
+  "title_bar": {
+    "show_sign_in": true,
+    "show_menus": false,
+    "show_branch_icon": true,
+  },
+  "project_panel": {
+    "button": true,
+  },
   "format_on_save": "on",
   "indent_guides": {
     "background_coloring": "indent_aware",
@@ -33,7 +60,7 @@
       "provider": "copilot_chat",
       "model": "gpt-5-mini",
     },
-    "default_profile": "ask",
+    "default_profile": "all",
     "profiles": {
       "all": {
         "name": "all",
