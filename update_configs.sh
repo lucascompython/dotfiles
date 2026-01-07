@@ -10,6 +10,9 @@ cp -a ~/.config/waybar/. ./config/waybar/
 echo "Copying zsh config..."
 cp ~/.zshrc .zshrc
 
+echo "Copying nvim config..."
+cp -a ~/.config/nvim/. ./config/nvim/
+
 
 # echo "Copying emacs config..."
 # cp -a ~/.doom.d/. ./emacs.d/
