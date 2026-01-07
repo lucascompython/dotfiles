@@ -10,6 +10,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank()
     end,
 })
+vim.highlight.on_yank()
+
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
 
 -- https://github.com/xb-bx/editable-term.nvim
 require("editable-term").setup({
@@ -19,3 +25,13 @@ require("editable-term").setup({
 	--wait_for_keys_delay = 50
 })
 
+-- zsh config:
+    -- alias vt='nvim +terminal +startinsert'
+
+    -- may need to add this:
+        --preexec() {
+            --printf "\033]133;A\007"
+        --}
+        --precmd() {
+            --printf "\033]133;B\007"
+        --}
