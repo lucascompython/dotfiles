@@ -13,6 +13,10 @@ cp ~/.zshrc .zshrc
 echo "Copying nvim config..."
 cp -a ~/.config/nvim/. ./config/nvim/
 
+echo "Copying zed config..."
+cp ~/.config/zed/settings.json ./zed/
+cp ~/.config/zed/keymap.json ./zed/
+
 
 # echo "Copying emacs config..."
 # cp -a ~/.doom.d/. ./emacs.d/
