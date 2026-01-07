@@ -19,3 +19,7 @@ I've costumized this behavior a bit to fit in with the zed editor keybindings I 
 The initial config is from [here](https://github.com/xb-bx/editable-term.nvim), but I've since made some changes, to fit my workflow better.
 
 Demo:
+
+
+https://github.com/user-attachments/assets/207a6f71-446d-47a6-b774-d34e127fd7ff
+
