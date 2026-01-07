@@ -12,7 +12,7 @@
       "with_arguments": {
         "program": "zsh",
         "args": ["-c", "nvim +terminal +startinsert"],
-        "title_override": null,
+        "title_override": "zsh",
       },
     },
   },
