@@ -173,16 +173,23 @@ M.setup = function(config)
                     local ln = vim.api.nvim_get_current_line()
                     local cursor = vim.api.nvim_win_get_cursor(0)
                     vim.api.nvim_win_set_cursor(0, cursor);
-                    line_num = cursor[1]
+                    local line_num = cursor[1]
+                    local matched = false
                     if M.prompts ~= nil and ln ~= nil then
                         for pattern, promt in pairs(M.prompts) do
                             local start, ent = ln:find(pattern)
                             if start ~= nil then
                                 bufinfo.promt_cursor = { line_num, ent }
                                 bufinfo.keybinds = promt.keybinds or M.default_keybinds
+                                matched = true
                                 break
                             end
                         end
+                    end
+                    -- If no pattern matched but we have a promt_cursor from TermRequest,
+                    -- update its line number to the current line
+                    if not matched and bufinfo.promt_cursor ~= nil then
+                        bufinfo.promt_cursor[1] = line_num
                     end
                 end
             })

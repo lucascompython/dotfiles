@@ -21,19 +21,19 @@ vim.opt.laststatus = 0
 
 -- https://github.com/xb-bx/editable-term.nvim
 require("editable-term").setup({
-	prompts = {
-		["^lucas@melhorpcnaoha:.* %$ "] = {}, -- risto theme
-	},
-	--wait_for_keys_delay = 50
+    prompts = {
+        ["^lucas@melhorpcnaoha:.-%$ "] = {}, -- matches both regular and git prompts
+    },
+    wait_for_keys_delay = 50
 })
 
 -- zsh config:
-    -- alias vt='nvim +terminal +startinsert'
+-- alias vt='nvim +terminal +startinsert'
 
-    -- may need to add this:
-        --preexec() {
-            --printf "\033]133;A\007"
-        --}
-        --precmd() {
-            --printf "\033]133;B\007"
-        --}
+-- may need to add this:
+--preexec() {
+--printf "\033]133;A\007"
+--}
+--precmd() {
+--printf "\033]133;B\007"
+--}
