@@ -46,13 +46,13 @@ end
 
 ---@class EditableTermConfig
 ---@field default_keybinds? Keybinds
----@field promts? {[string]: Promt}
+---@field prompts? {[string]: Promt}
 ---@field wait_for_keys_delay integer
 
 ---@param config EditableTermConfig
 M.setup = function(config)
     M.buffers = {}
-    M.promts = (config or {}).promts
+    M.prompts = (config or {}).prompts
     M.default_keybinds = (config or {}).default_keybinds or {
         clear_current_line = '<C-e><C-u>',
         forward_char = '<C-f>',
@@ -68,6 +68,7 @@ M.setup = function(config)
             vim.keymap.set('n', 'A', function()
                 local bufinfo = M.buffers[args.buf]
                 if bufinfo.promt_cursor then
+                    update_line(args.buf, vim.bo.channel)
                     local cursor_row, cursor_col = unpack(bufinfo.promt_cursor)
                     local line = vim.api.nvim_buf_get_lines(args.buf, cursor_row - 1, cursor_row, false)[1]
                     line = line:sub(cursor_col)
@@ -82,6 +83,7 @@ M.setup = function(config)
             vim.keymap.set('n', 'I', function()
                 local bufinfo = M.buffers[args.buf]
                 if bufinfo.promt_cursor then
+                    update_line(args.buf, vim.bo.channel)
                     local cursor_row, cursor_col = unpack(bufinfo.promt_cursor)
                     local line = vim.api.nvim_buf_get_lines(args.buf, cursor_row - 1, cursor_row, false)[1]
                     line = line:sub(cursor_col)
@@ -98,6 +100,7 @@ M.setup = function(config)
                 local cursor = vim.api.nvim_win_get_cursor(0)
                 if bufinfo.promt_cursor then
                     if cursor[1] == bufinfo.promt_cursor[1] then
+                        update_line(args.buf, vim.bo.channel)
                         set_term_cursor(cursor[2])
                     else
                         vim.fn.chansend(vim.bo.channel, term_codes(bufinfo.keybinds.goto_line_end))
@@ -110,11 +113,12 @@ M.setup = function(config)
                 if bufinfo.promt_cursor then
                     local cursor = vim.api.nvim_win_get_cursor(0)
                     if cursor[1] == bufinfo.promt_cursor[1] then
+                        update_line(args.buf, vim.bo.channel)
                         local p = term_codes(bufinfo.keybinds.goto_line_start) ..
                             vim.fn['repeat'](term_codes(bufinfo.keybinds.forward_char),
                                 cursor[2] - bufinfo.promt_cursor[2] + 1)
                         vim.fn.chansend(vim.bo.channel, p)
-                    else 
+                    else
                         vim.fn.chansend(vim.bo.channel, term_codes(bufinfo.keybinds.goto_line_end))
                     end
                 end
@@ -170,9 +174,9 @@ M.setup = function(config)
                     local cursor = vim.api.nvim_win_get_cursor(0)
                     vim.api.nvim_win_set_cursor(0, cursor);
                     line_num = cursor[1]
-                    if M.promts ~= nil and ln ~= nil then
-                        for pattern, promt in pairs(M.promts) do
-                            start, ent = ln:find(pattern)
+                    if M.prompts ~= nil and ln ~= nil then
+                        for pattern, promt in pairs(M.prompts) do
+                            local start, ent = ln:find(pattern)
                             if start ~= nil then
                                 bufinfo.promt_cursor = { line_num, ent }
                                 bufinfo.keybinds = promt.keybinds or M.default_keybinds
@@ -187,7 +191,11 @@ M.setup = function(config)
                 buffer = args.buf,
                 callback = function(args)
                     if string.match(args.data.sequence, '^\027]133;B') then
-                        M.buffers[args.buf].promt_cursor = args.data.cursor
+                        -- args.data.cursor[2] is 0-indexed column where text starts
+                        -- We store it as-is since update_line does promt_cursor[2] + 1
+                        -- and 0-indexed cursor position equals 1-indexed "last char of prompt"
+                        local cursor = args.data.cursor
+                        M.buffers[args.buf].promt_cursor = { cursor[1], cursor[2] }
                     end
                 end,
             })
