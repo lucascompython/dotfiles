@@ -7,6 +7,7 @@ vim.keymap.set('n', '<leader>t', ':terminal<CR>')
 vim.api.nvim_set_option("clipboard", "unnamedplus")
 
 -- https://github.com/xb-bx/editable-term.nvim
+-- TODO: see undo/redo
 require("editable-term").setup({})
 
 -- TODO: .zshrc
