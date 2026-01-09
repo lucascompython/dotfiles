@@ -1,4 +1,4 @@
-ZSH_THEME=afowler
+ZSH_THEME=risto
 source /usr/share/cachyos-zsh-config/cachyos-config.zsh
 
 alias yay="paru"
@@ -24,3 +24,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 . "/home/lucas/.deno/env"
+
+alias vt='nvim +terminal +startinsert'
+

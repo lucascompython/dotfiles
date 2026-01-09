@@ -22,9 +22,9 @@ vim.opt.laststatus = 0
 -- https://github.com/xb-bx/editable-term.nvim
 require("editable-term").setup({
     prompts = {
-        ["^lucas@melhorpcnaoha:.-%$ "] = {}, -- matches both regular and git prompts
+        ["^lucas@lpcdolucas:.-%$ "] = {}, -- matches both regular and git prompts
     },
-    wait_for_keys_delay = 50
+    --wait_for_keys_delay = 50
 })
 
 -- zsh config:
