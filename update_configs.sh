@@ -16,6 +16,7 @@ cp -a ~/.config/nvim/. ./config/nvim/
 echo "Copying zed config..."
 cp ~/.config/zed/settings.json ./zed/
 cp ~/.config/zed/keymap.json ./zed/
+cp ~/.config/zed/tasks.json ./zed/
 
 
 # echo "Copying emacs config..."
