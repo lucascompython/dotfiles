@@ -20,8 +20,10 @@ vim.opt.laststatus = 0
 
 
 -- https://github.com/xb-bx/editable-term.nvim
+-- TODO: checkout https://github.com/chomosuke/term-edit.nvim
 require("editable-term").setup({
     prompts = {
+        -- the zsh theme is risto
         ["^lucas@lpcdolucas:.-%$ "] = {}, -- matches both regular and git prompts
     },
     --wait_for_keys_delay = 50
