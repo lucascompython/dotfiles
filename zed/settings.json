@@ -41,6 +41,7 @@
   },
   "colorize_brackets": true,
   "edit_predictions": {
+    "provider": "copilot",
     "mode": "eager",
   },
   "lsp_document_colors": "inlay",
@@ -89,16 +90,17 @@
     },
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-opus-4.5",
+      "model": "claude-opus-4.6",
     },
-  },
-  "features": {
-    "edit_prediction_provider": "copilot",
   },
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 16,
-  "theme": "Catppuccin Frappé",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Catppuccin Frappé",
+  },
   "relative_line_numbers": "enabled",
   "diagnostics": {
     "include_warnings": true,
@@ -128,7 +130,7 @@
           "features": "all",
         },
         "cargo": {
-          // "allFeatures": true,
+          "allFeatures": true,
           // "features": ["leptos/ssr", "leptos/hydrate"]
         },
       },
