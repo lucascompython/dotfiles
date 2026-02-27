@@ -12,7 +12,7 @@
       "with_arguments": {
         "program": "zsh",
         "args": ["-c", "nvim +terminal +startinsert"],
-        "title_override": "zsh",
+        "title_override": null,
       },
     },
   },
@@ -90,17 +90,13 @@
     },
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-opus-4.6",
+      "model": "gpt-5.3-codex",
     },
   },
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 16,
-  "theme": {
-    "mode": "dark",
-    "light": "One Light",
-    "dark": "Catppuccin Frappé",
-  },
+  "theme": "Catppuccin Frappé",
   "relative_line_numbers": "enabled",
   "diagnostics": {
     "include_warnings": true,
@@ -130,7 +126,7 @@
           "features": "all",
         },
         "cargo": {
-          "allFeatures": true,
+          // "allFeatures": true,
           // "features": ["leptos/ssr", "leptos/hydrate"]
         },
       },
