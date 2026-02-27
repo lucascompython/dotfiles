@@ -12,4 +12,17 @@
     "show_command": true,
     "show_summary": false,
   },
+  {
+    "label": "Run C",
+    "command": "gcc -std=c23 -Wall -Wextra $ZED_FILE -o $ZED_RELATIVE_DIR/output/$ZED_STEM && ./$ZED_RELATIVE_DIR/output/$ZED_STEM",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "never",
+    "hide": "never",
+    "shell": {
+      "program": "/usr/bin/sh",
+    },
+    "show_command": true,
+    "show_summary": false,
+  },
 ]
