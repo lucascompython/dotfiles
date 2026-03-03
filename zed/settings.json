@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "sticky_scroll": {
+    "enabled": true,
+  },
   "terminal": {
     "shell": {
       "with_arguments": {
@@ -56,16 +59,35 @@
   "auto_signature_help": false,
   "icon_theme": "Catppuccin Frappé",
   "agent": {
+    "favorite_models": [
+      {
+        "provider": "copilot_chat",
+        "model": "claude-opus-4.6",
+        "enable_thinking": true,
+      },
+      {
+        "provider": "copilot_chat",
+        "model": "gemini-3.1-pro-preview",
+        "enable_thinking": true,
+      },
+      {
+        "provider": "copilot_chat",
+        "model": "gpt-5.3-codex",
+        "enable_thinking": true,
+      },
+    ],
     "notify_when_agent_waiting": "never",
     "inline_assistant_model": {
       "provider": "copilot_chat",
-      "model": "gpt-5-mini",
+      "model": "gpt-5.3-codex",
     },
     "default_profile": "all",
     "profiles": {
       "all": {
         "name": "all",
         "tools": {
+          "save_file": true,
+          "restore_file_from_disk": true,
           "open": true,
           "copy_path": true,
           "create_directory": true,
@@ -96,7 +118,11 @@
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 16,
-  "theme": "Catppuccin Frappé",
+  "theme": {
+    "mode": "dark",
+    "light": "Catppuccin Frappé",
+    "dark": "Catppuccin Frappé",
+  },
   "relative_line_numbers": "enabled",
   "diagnostics": {
     "include_warnings": true,
@@ -126,16 +152,9 @@
           "features": "all",
         },
         "cargo": {
-          // "allFeatures": true,
+          "allFeatures": true,
           // "features": ["leptos/ssr", "leptos/hydrate"]
         },
-      },
-      "procMacro": {
-        "ignored": [
-          // optional:
-          // "component",
-          "server",
-        ],
       },
     },
   },
