@@ -19,6 +19,27 @@ vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
 vim.opt.laststatus = 0
 
 
+local visual = os.getenv("VISUAL")
+-- pressing gd will open  the file under the cursor in the editor specified by $VISUAL
+-- In my case $VISUAL is set to zed, and has the same behavior as gd in zed, kinda like a "go to definition" but for files
+vim.keymap.set("n", "gd", function()
+    local file = vim.fn.expand("<cfile>")
+    if file == "" then
+        print("No file under cursor")
+        return
+    end
+
+    if not visual or visual == "" then
+        print("$VISUAL is not set")
+        return
+    end
+
+    vim.fn.jobstart({ visual, file }, { detach = true })
+end, { desc = "Open file under cursor in $VISUAL" })
+
+
+
+
 -- https://github.com/xb-bx/editable-term.nvim
 -- TODO: checkout https://github.com/chomosuke/term-edit.nvim
 require("editable-term").setup({
