@@ -17,7 +17,7 @@ vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
 vim.opt.laststatus = 0
 
--- TOOD: make this work on windows
+-- TODO: make this work on windows
 local function get_terminal_cwd()
     local pid = vim.fn.jobpid(vim.bo.channel)
     local cwd = vim.fn.resolve("/proc/" .. pid .. "/cwd")
@@ -27,10 +27,22 @@ end
 -- pressing gd will open  the file under the cursor in the editor specified by $VISUAL
 -- In my case $VISUAL is set to zed, and has the same behavior as gd in zed, kinda like a "go to definition" but for files
 local visual = os.getenv("VISUAL") or os.getenv("EDITOR")
+local browser = os.getenv("BROWSER") or "firefox"
+-- maybe, if I use this enough, we could just use "xdg-open" for other opening other things
 vim.keymap.set("n", "gd", function()
     local file = vim.fn.expand("<cWORD>")
+
+    -- remove any surrounding parens, brackets, quotes, etc.
+    file = file:gsub("^[%(%[\"']+", ""):gsub("[%%)%]\"']+$", "")
+
     if file == "" then
         print("No file under cursor")
+        return
+    end
+
+    -- if file is http or https, open in browser
+    if file:match("^https?://") then
+        vim.fn.jobstart({ browser, file }, { detach = true })
         return
     end
 
