@@ -1,7 +1,7 @@
 [
   {
-    "label": "Run C++",
-    "command": "clang++ -std=c++23 $ZED_FILE -o $ZED_STEM && ./$ZED_STEM",
+    "label": "Run C",
+    "command": "gcc -std=c23 -Wall -Wextra $ZED_FILE -o $ZED_RELATIVE_DIR/output/$ZED_STEM && ./$ZED_RELATIVE_DIR/output/$ZED_STEM",
     "use_new_terminal": false,
     "allow_concurrent_runs": false,
     "reveal": "never",
@@ -13,8 +13,8 @@
     "show_summary": false,
   },
   {
-    "label": "Run C",
-    "command": "gcc -std=c23 -Wall -Wextra $ZED_FILE -o $ZED_RELATIVE_DIR/output/$ZED_STEM && ./$ZED_RELATIVE_DIR/output/$ZED_STEM",
+    "label": "Run C++",
+    "command": "clang++ -std=c++23 $ZED_FILE -o $ZED_STEM && ./$ZED_STEM",
     "use_new_terminal": false,
     "allow_concurrent_runs": false,
     "reveal": "never",
