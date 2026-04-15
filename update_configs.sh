@@ -4,6 +4,13 @@
 echo "Copying hyprland config..."
 cp -a ~/.config/hypr/. ./config/hypr/
 
+echo "Copying niri config..."
+cp -a ~/.config/niri/. ./config/niri/
+cp ~/.config/noctalia/colors.json ./config/noctalia/
+cp ~/.config/noctalia/plugins.json ./config/noctalia/
+cp ~/.config/noctalia/settings.json ./config/noctalia/
+
+
 echo "Copying waybar config..."
 cp -a ~/.config/waybar/. ./config/waybar/
 
