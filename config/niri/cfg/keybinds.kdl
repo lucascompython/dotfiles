@@ -115,6 +115,8 @@ binds {
     Mod+Plus                           { set-column-width "+10%"; }
     Mod+Shift+Minus                     { set-window-height "-10%"; }
     Mod+Shift+Plus                     { set-window-height "+10%"; }
+    Mod+R                               { switch-preset-column-width; }
+    Mod+Shift+R                         { switch-preset-column-width-back; }
 
     // ─── Modes ───
     Mod+T                               { toggle-window-floating; }
