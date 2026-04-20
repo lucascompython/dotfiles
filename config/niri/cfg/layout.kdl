@@ -17,6 +17,7 @@ layout {
 
 	always-center-single-column
 	//default-column-width { proportion 1.0; }
+	//default-column-width { }
 
 
 	struts {}
