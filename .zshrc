@@ -27,3 +27,8 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 alias vt='nvim +terminal +startinsert'
 
+alias gcc="sccache gcc"
+alias g++="sccache g++"
+alias clang="sccache clang"
+alias clang++="sccache clang++"
+export PATH="$HOME/.local/bin:$PATH"
