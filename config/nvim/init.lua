@@ -11,6 +11,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
+
+vim.opt.relativenumber = true
+
+vim.api.nvim_create_autocmd({ "TermOpen" }, { -- needed for +terminal
+    callback = function()
+        vim.opt.relativenumber = true
+    end,
+})
+
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
