@@ -28,6 +28,7 @@ vim.opt.laststatus = 0
 
 
 
+
 -- TODO: make this work on windows
 local function get_terminal_cwd()
     local pid = vim.fn.jobpid(vim.bo.channel)
@@ -66,7 +67,7 @@ vim.keymap.set("n", "gd", function()
 end, { desc = "Open file under cursor in $VISUAL" })
 
 
--- Find the packages beside this file, including when launched with nvim -u.
+-- find the packages beside this file, including when launched with nvim -u
 local config_dir = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h")
 vim.opt.runtimepath:prepend(config_dir)
 vim.opt.packpath:prepend(config_dir)
