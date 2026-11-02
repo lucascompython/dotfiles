@@ -16,10 +16,8 @@ One of the coolest things about neovim is their embedded terminal emulator.
 You can open a terminal inside neovim a treat it like a normal buffer.  
 This means you can navigate your whole terminal with your normal vim keybindings.  
 I've costumized this behavior a bit to fit in with the zed editor keybindings I use.  
-The initial config is from [here](https://github.com/xb-bx/editable-term.nvim), but I've since made some changes, to fit my workflow better.
+The initial config is from [here](https://github.com/xb-bx/editable-term.nvim), but I've since made some changes, to fit my workflow better (<gA> to select all matching words; <gD> to do open a file in zed or link in browser).
 
 Demo:
 
-
 https://github.com/user-attachments/assets/cb7cc8ce-776e-4c75-86fe-611b555923ac
-
