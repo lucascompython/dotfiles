@@ -1,14 +1,14 @@
 # Capture BUFFER, never the autosuggestion in POSTDISPLAY. Hex keeps control
 # characters and Unicode out of the OSC protocol and shell command parsing.
 _nvim_term_snapshot() {
-    local text="$BUFFER" cursor="$CURSOR" encoded='' byte
+    local response="${1:-snapshot}" text="$BUFFER" cursor="$CURSOR" encoded='' byte
     local LC_ALL=C
     integer i
     for (( i = 1; i <= ${#text}; i++ )); do
         builtin printf -v byte '%02x' "'${text[i]}"
         encoded+="$byte"
     done
-    builtin printf '\033]777;nvim-edit;snapshot;%s;%s\007' "$cursor" "$encoded"
+    builtin printf '\033]777;nvim-edit;%s;%s;%s\007' "$response" "$cursor" "$encoded"
 }
 
 _nvim_term_apply() {
@@ -27,7 +27,7 @@ _nvim_term_apply() {
     done
     builtin printf -v BUFFER '%b' "$escaped"
     CURSOR=$cursor
-    _nvim_term_snapshot
+    _nvim_term_snapshot applied
     zle -R
 }
 

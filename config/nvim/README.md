@@ -16,6 +16,9 @@ For a new clone, use `git clone --recurse-submodules https://github.com/lucascom
   Single change operations return to real zsh input for typing.
 - `ga` (g then a), or `gA`, selects matching words or selected text. Cursors
   appear inline. Multicursor editing uses a native Vim editor on that line.
+- `gl` adds the next matching word/selection; `gL` adds the previous one. Repeat
+  to grow the selection; matching wraps and skips matches already selected.
+  Both use the same inline editing and Escape behavior as `gA`.
 - `c` replaces the selections. `Esc` from insert mode keeps every cursor in
   normal mode, allowing another edit. `Esc` in normal mode collapses the cursors
   and sends the edited command back to zsh without executing it.

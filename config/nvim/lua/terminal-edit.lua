@@ -25,6 +25,7 @@ local function command_at_cursor()
     local buf = vim.api.nvim_get_current_buf()
     local cursor = vim.api.nvim_win_get_cursor(0)
     local original = vim.api.nvim_get_current_line()
+    request_snapshot(buf)
     local shell = shells[buf]
     -- risto, independent of the user, host, directory and git branch.
     local _, prompt = original:find("^[^%s]+@[^%s]+:.-[%$#] ")
@@ -99,7 +100,7 @@ local function leave_visual()
     vim.cmd.normal({ esc, bang = true })
 end
 
-local function select_matches()
+local function select_matches(direction)
     local mode = vim.fn.mode()
     local whole_word = mode == "n"
     if whole_word then
@@ -115,17 +116,57 @@ local function select_matches()
     if text == "" then
         return
     end
+    whole_word = whole_word or (active and active.match_text == text and active.match_word)
+    if active then active.match_text, active.match_word = text, whole_word end
     local pattern = "\\C\\V" .. vim.fn.escape(text, "\\")
     if whole_word and vim.fn.match(text, "^\\k\\+$") == 0 then
         pattern = "\\<" .. pattern .. "\\m\\>"
     end
-    mc.clearCursors()
-    mc.action(function(ctx)
-        local cursor = ctx:mainCursor()
-        cursor:setMode("v")
-        cursor:setVisual({ 1, 1 }, { 1, #vim.api.nvim_get_current_line() })
-    end)
-    mc.matchCursors(pattern)
+    if direction then
+        local line = vim.api.nvim_get_current_line()
+        local matches, offset = {}, 0
+        while offset < #line do
+            local match = vim.fn.matchstrpos(line, pattern, offset)
+            if match[2] < 0 or match[3] <= offset then break end
+            matches[#matches + 1] = {
+                match[2] + 1,
+                match[2] + vim.fn.byteidx(match[1], vim.fn.strchars(match[1]) - 1) + 1,
+            }
+            offset = match[3]
+        end
+        mc.action(function(ctx)
+            local main = ctx:mainCursor()
+            main:setMode("v")
+            main:setVisual({ 1, math.min(first[3], last[3]) }, { 1, math.max(first[3], last[3]) })
+            local selected = {}
+            ctx:forEachCursor(function(cursor)
+                local start = cursor:getVisual()
+                selected[start[2]] = true
+            end)
+            local start = main:getVisual()
+            local index
+            for i, match in ipairs(matches) do
+                if match[1] == start[2] then index = i; break end
+            end
+            if not index then return end
+            for step = 1, #matches - 1 do
+                local match = matches[(index - 1 + direction * step) % #matches + 1]
+                if not selected[match[1]] then
+                    main:clone()
+                    main:setVisual({ 1, match[1] }, { 1, match[2] })
+                    return
+                end
+            end
+        end)
+    else
+        mc.clearCursors()
+        mc.action(function(ctx)
+            local cursor = ctx:mainCursor()
+            cursor:setMode("v")
+            cursor:setVisual({ 1, 1 }, { 1, #vim.api.nvim_get_current_line() })
+        end)
+        mc.matchCursors(pattern)
+    end
 end
 
 local function open(persistent)
@@ -180,10 +221,10 @@ local function open(persistent)
             if active == edit then finish(false, true) end
         end)
     end, { buffer = edit.buf })
-    for _, lhs in ipairs({ "ga", "gA" }) do
+    for _, lhs in ipairs({ "ga", "gA", "gl", "gL" }) do
         vim.keymap.set({ "n", "x" }, lhs, function()
             edit.persistent = true
-            select_matches()
+            select_matches(lhs == "gl" and 1 or lhs == "gL" and -1 or nil)
         end, { buffer = edit.buf })
     end
     vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave" }, {
@@ -235,10 +276,10 @@ local function map_terminal(buf)
             vim.cmd.startinsert()
         end, { buffer = buf })
     end
-    for _, lhs in ipairs({ "ga", "gA" }) do
+    for _, lhs in ipairs({ "ga", "gA", "gl", "gL" }) do
         vim.keymap.set({ "n", "x" }, lhs, function()
             if open(true) then
-                select_matches()
+                select_matches(lhs == "gl" and 1 or lhs == "gL" and -1 or nil)
             else
                 vim.notify("Place the cursor in the current, unwrapped shell command", vim.log.levels.INFO)
             end
@@ -279,11 +320,11 @@ function M.setup(opts)
             local shell = shells[ev.buf]
             if message == "start" then shell.editing = true end
             if message == "end" then shell.editing, shell.text = false, nil end
-            local cursor, text = message:match("^snapshot;(%d+);(%x*)$")
-            if cursor then
+            local kind, cursor, text = message:match("^(%a+);(%d+);(%x*)$")
+            if cursor and (kind == "snapshot" or kind == "applied") then
                 shell.text = text:gsub("%x%x", function(byte) return string.char(tonumber(byte, 16)) end)
                 shell.cursor = tonumber(cursor)
-                shell.version = (shell.version or 0) + 1
+                if kind == "snapshot" then shell.version = (shell.version or 0) + 1 end
             end
         end,
     })
