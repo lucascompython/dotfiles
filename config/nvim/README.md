@@ -24,6 +24,12 @@ For a new clone, use `git clone --recurse-submodules https://github.com/lucascom
   and sends the edited command back to zsh without executing it.
 - `Enter` in multicursor mode applies and executes the command. `Ctrl-C` cancels
   that editing session. Normal zsh input keeps zsh's usual Enter/Ctrl-C behavior.
+- Terminal `p`/`P` paste the selected register into the current shell input,
+  including text yanked from scrollback with `yy` or `2yy`. Newlines, including
+  a linewise register's final newline, are preserved without executing the text.
+  Named registers and counts work (`"ap`, `2p`). On the current command, `p`
+  inserts after the navigation cursor and `P` before it; from scrollback they
+  paste at the shell's input cursor. Multiline input can then be edited in zsh.
 
 Modal command editing supports one unwrapped line with the risto prompt theme.
 Scrollback remains available for navigation and copying. Regular insert mode

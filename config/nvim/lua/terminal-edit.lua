@@ -263,6 +263,41 @@ local function open(persistent)
 end
 
 local function map_terminal(buf)
+    local function paste(after)
+        local text = vim.fn.getreg(vim.v.register):rep(vim.v.count1)
+        if text == "" then return end
+        if not request_snapshot(buf) then
+            vim.notify("Paste at an active shell prompt", vim.log.levels.INFO)
+            return
+        end
+        local edit = command_at_cursor()
+        local shell = shells[buf]
+        if not shell or not shell.editing or shell.text == nil then
+            vim.notify("Paste at an active shell prompt", vim.log.levels.INFO)
+            return
+        end
+        local cursor = shell.cursor
+        if edit then
+            cursor = vim.fn.strchars(edit.command:sub(1, edit.col))
+            if after then cursor = math.min(cursor + 1, vim.fn.strchars(edit.command)) end
+        end
+        local offset = vim.fn.byteidx(shell.text, cursor)
+        if offset < 0 then offset = #shell.text end
+        local command = shell.text:sub(1, offset) .. text .. shell.text:sub(offset + 1)
+        -- Assign BUFFER through the ZLE widget, so literal newlines are input,
+        -- never Enter keys. This also preserves linewise register endings.
+        apply_command(vim.bo[buf].channel, command, cursor + vim.fn.strchars(text))
+        if request_snapshot(buf) and shell.position and shell.position[1] > 0 then
+            local row, column = unpack(shell.position)
+            if row <= vim.api.nvim_buf_line_count(buf) then
+                local col = vim.fn.virtcol2col(0, row, column + 1)
+                vim.api.nvim_win_set_cursor(0, { row, math.max(0, col - 1) })
+                prompt_rows[buf] = row
+            end
+        end
+    end
+    vim.keymap.set("n", "p", function() paste(true) end, { buffer = buf, desc = "Paste register into shell input" })
+    vim.keymap.set("n", "P", function() paste(false) end, { buffer = buf, desc = "Paste register before shell cursor" })
     for _, lhs in ipairs({ "i", "a", "I", "A" }) do
         vim.keymap.set("n", lhs, function()
             local edit = command_at_cursor()
@@ -294,7 +329,7 @@ local function map_terminal(buf)
             vim.notify("Edit the current, unwrapped shell command", vim.log.levels.INFO)
         end
     end
-    for _, lhs in ipairs({ "d", "dd", "D", "c", "cc", "C", "s", "S", "x", "X", "r", "R", "p", "P" }) do
+    for _, lhs in ipairs({ "d", "dd", "D", "c", "cc", "C", "s", "S", "x", "X", "r", "R" }) do
         vim.keymap.set("n", lhs, function() edit_key(lhs) end, { buffer = buf })
     end
     for _, lhs in ipairs({ "d", "c", "x", "s" }) do
@@ -324,6 +359,7 @@ function M.setup(opts)
             if cursor and (kind == "snapshot" or kind == "applied") then
                 shell.text = text:gsub("%x%x", function(byte) return string.char(tonumber(byte, 16)) end)
                 shell.cursor = tonumber(cursor)
+                shell.position = ev.data.cursor
                 if kind == "snapshot" then shell.version = (shell.version or 0) + 1 end
             end
         end,
