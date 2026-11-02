@@ -21,5 +21,5 @@ The initial config is from [here](https://github.com/xb-bx/editable-term.nvim), 
 Demo:
 
 
-https://github.com/user-attachments/assets/207a6f71-446d-47a6-b774-d34e127fd7ff
+https://github.com/user-attachments/assets/cb7cc8ce-776e-4c75-86fe-611b555923ac
 
