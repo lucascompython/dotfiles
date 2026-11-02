@@ -18,7 +18,7 @@ echo "Copying zsh config..."
 cp ~/.zshrc .zshrc
 
 echo "Copying nvim config..."
-cp -a ~/.config/nvim/. ./config/nvim/
+rsync -a --exclude=.git ~/.config/nvim/ ./config/nvim/
 
 echo "Copying zed config..."
 cp ~/.config/zed/settings.json ./zed/

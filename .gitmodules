@@ -1,0 +1,4 @@
+[submodule "nvim-multicursor"]
+	path = config/nvim/pack/terminal/start/multicursor.nvim
+	url = https://github.com/jake-stewart/multicursor.nvim.git
+	branch = 1.0

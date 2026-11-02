@@ -6,4 +6,4 @@ cp -a ./zed/. ~/.config/zed/
 
 
 echo "Applying nvim config..."
-cp -a ./config/nvim/. ~/.config/nvim/
+rsync -a --exclude=.git ./config/nvim/ ~/.config/nvim/

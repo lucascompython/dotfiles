@@ -26,6 +26,8 @@ vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
 vim.opt.laststatus = 0
 
+
+
 -- TODO: make this work on windows
 local function get_terminal_cwd()
     local pid = vim.fn.jobpid(vim.bo.channel)
@@ -64,23 +66,12 @@ vim.keymap.set("n", "gd", function()
 end, { desc = "Open file under cursor in $VISUAL" })
 
 
--- https://github.com/xb-bx/editable-term.nvim
--- TODO: checkout https://github.com/chomosuke/term-edit.nvim
-require("editable-term").setup({
-    prompts = {
-        -- the zsh theme is risto
-        ["^lucas@lpcdolucas:.-%$ "] = {}, -- matches both regular and git prompts
-    },
-    --wait_for_keys_delay = 50
-})
+-- Find the packages beside this file, including when launched with nvim -u.
+local config_dir = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h")
+vim.opt.runtimepath:prepend(config_dir)
+vim.opt.packpath:prepend(config_dir)
+vim.cmd.packadd("multicursor.nvim")
+vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:ver25-blinkon500-blinkoff500-TermCursor"
+require("terminal-edit").setup({ config_dir = config_dir })
 
--- zsh config:
--- alias vt='nvim +terminal +startinsert'
-
--- may need to add this:
---preexec() {
---printf "\033]133;A\007"
---}
---precmd() {
---printf "\033]133;B\007"
---}
+-- zsh alias: vt='nvim +terminal +startinsert'

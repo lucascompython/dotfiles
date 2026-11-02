@@ -1,0 +1,8 @@
+#!/bin/sh
+# Only the interactive shell started by :terminal needs the ZLE bridge.
+if [ "$#" -eq 0 ]; then
+    nvim_zsh_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+    export NVIM_TERM_ORIGINAL_ZDOTDIR="${ZDOTDIR-}"
+    export ZDOTDIR="$nvim_zsh_dir"
+fi
+exec "${NVIM_TERM_SHELL:-/bin/zsh}" "$@"
