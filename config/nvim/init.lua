@@ -1,3 +1,11 @@
+-- load file handoff first, so nested nvim commands can contact this instance
+local config_dir = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h")
+vim.opt.runtimepath:prepend(config_dir)
+vim.opt.packpath:prepend(config_dir)
+vim.cmd.packadd("flatten.nvim")
+require("terminal-files").setup()
+if require("flatten").is_guest() then return end
+
 vim.g.mapleader = " "
 
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
@@ -41,7 +49,7 @@ end
 local visual = os.getenv("VISUAL") or os.getenv("EDITOR")
 local browser = os.getenv("BROWSER") or "firefox"
 -- maybe, if I use this enough, we could just use "xdg-open" for other opening other things
-vim.keymap.set("n", "gd", function()
+local function open_terminal_path()
     local file = vim.fn.expand("<cWORD>")
 
     -- remove any surrounding parens, brackets, quotes, etc.
@@ -64,13 +72,16 @@ vim.keymap.set("n", "gd", function()
     end
 
     vim.fn.jobstart({ visual, file }, { detach = true, cwd = get_terminal_cwd() })
-end, { desc = "Open file under cursor in $VISUAL" })
+end
+vim.api.nvim_create_autocmd("TermOpen", {
+    callback = function(ev)
+        vim.keymap.set("n", "gd", open_terminal_path, {
+            buffer = ev.buf, desc = "Open file under cursor in $VISUAL",
+        })
+    end,
+})
 
 
--- find the packages beside this file, including when launched with nvim -u
-local config_dir = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h")
-vim.opt.runtimepath:prepend(config_dir)
-vim.opt.packpath:prepend(config_dir)
 vim.cmd.packadd("multicursor.nvim")
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:ver25-blinkon500-blinkoff500-TermCursor"
 require("terminal-edit").setup({ config_dir = config_dir })

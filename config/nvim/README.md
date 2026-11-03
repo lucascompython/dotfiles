@@ -1,12 +1,27 @@
 # Neovim terminal workflow
 
-Initialize multicursor.nvim after cloning or pulling these dotfiles:
+Initialize the plugin submodules after cloning or pulling these dotfiles:
 
 ```sh
 git -C ~/Desktop/dotfiles submodule update --init --recursive
 ```
 
 For a new clone, use `git clone --recurse-submodules https://github.com/lucascompython/dotfiles`.
+
+Inside an integrated terminal, `nvim <file>` opens the file in the existing
+Neovim process, in a temporary tab. `:wq` saves and closes that edit, restores
+the terminal you launched it from, and resumes shell input. `:q!` returns without
+writing the file. Relative paths, spaces in filenames, and `nvim +12 file` work.
+An ordinary `nvim <file>` launch outside a Neovim terminal opens normally.
+
+This uses [flatten.nvim](https://github.com/willothy/flatten.nvim), installed as
+a Git submodule at `pack/terminal/start/flatten.nvim`. It forwards nested file
+opens through Neovim's local RPC connection. The terminal tab stays alive during
+the edit; use `:qa` when you intend to exit the whole Neovim session.
+
+After installing updates, restart the outer Neovim before trying the handoff.
+The `gd` shortcut for opening a path in `$VISUAL` applies to terminal buffers;
+file buffers use Neovim's normal keybindings.
 
 - `Esc` from shell input enters terminal navigation: `hjkl`, `w`, `b`, `/`, etc.
 - `i`, `a`, `I`, and `A` enter real zsh input at the chosen position. Zsh keeps

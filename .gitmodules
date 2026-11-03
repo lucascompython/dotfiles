@@ -2,3 +2,7 @@
 	path = config/nvim/pack/terminal/start/multicursor.nvim
 	url = https://github.com/jake-stewart/multicursor.nvim.git
 	branch = 1.0
+[submodule "nvim-flatten"]
+	path = config/nvim/pack/terminal/start/flatten.nvim
+	url = https://github.com/willothy/flatten.nvim.git
+	branch = main
