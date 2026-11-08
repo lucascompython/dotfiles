@@ -32,11 +32,24 @@ local function find_terminal(pid)
     end
 end
 
+local function parent_connection()
+    -- Explicit terminal launches must load the complete config, even when Zed
+    -- inherited NVIM from another editor's terminal.
+    if vim.tbl_contains(vim.v.argv, "+terminal") then return end
+    local address = vim.env.NVIM
+    if not address or address == "" then return end
+    -- flatten marks guests before attempting to connect. Validate here so an
+    -- expired inherited socket cannot leave a standalone instance half loaded.
+    local ok, channel = pcall(vim.fn.sockconnect, "pipe", address, { rpc = true })
+    if ok and channel > 0 then return channel end
+end
+
 function M.setup()
     require("flatten").setup({
         -- Keep the terminal tab alive, so :wq closes only the file edit.
         window = { open = "tab" },
         hooks = {
+            pipe_path = parent_connection,
             should_block = function() return true end,
             guest_data = function()
                 return { shell_pid = vim.uv.os_getppid() }
